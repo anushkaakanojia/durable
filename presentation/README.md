@@ -1,12 +1,14 @@
 # Durable Workflow Engine — Visual Walkthrough
 
-A self-contained, 17-slide presentation about the workflow engine in this
-repository. It uses only HTML, CSS, and a small local JavaScript file — no
-build step, no external fonts, no CDN, and no network access.
+A self-contained, 19-slide presentation about the workflow engine in this
+repository. It uses only HTML, CSS, a small local JavaScript file, and one
+local image (`amazon-example.png`) — no build step, no external fonts, no CDN,
+and no network access.
 
 ## What it covers
 
-The deck builds the mental model in this order:
+The deck defines what durability means, grounds it in a familiar example — an
+Amazon order — and then builds the mental model in this order:
 
 1. **Idempotency** — repeating an operation has the same effect as doing it once.
 2. **Saga** — completed steps are undone in reverse after a permanent failure.
@@ -56,7 +58,7 @@ layout automatically.
 
 Use the browser's print dialog (`Ctrl+P` / `Cmd+P`) and choose **Save as PDF**.
 The stylesheet forces one landscape page per slide and hides controls, notes,
-and the progress bar. The result should be 17 pages.
+and the progress bar. The result should be 19 pages.
 
 ## Editing
 
@@ -64,5 +66,6 @@ and the progress bar. The result should be 17 pages.
 - `styles.css` — theme, layouts, diagrams, document mode, responsive rules,
   and print rules
 - `script.js` — navigation, hash routing, notes/document/fullscreen toggles
+- `amazon-example.png` — opening slide image
 
 All content lives in this folder and is safe to move or archive as a unit.

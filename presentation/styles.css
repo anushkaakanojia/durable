@@ -10,16 +10,17 @@
 }
 
 :root {
-  --bg: #060a12;
-  --bg-2: #0a1120;
-  --panel: rgba(148, 163, 184, 0.055);
-  --panel-2: rgba(148, 163, 184, 0.09);
-  --panel-solid: #0d1526;
-  --border: rgba(148, 163, 184, 0.17);
-  --border-strong: rgba(148, 163, 184, 0.3);
-  --text: #e8eff9;
-  --muted: #93a4ba;
-  --muted-2: #6f8299;
+  --bg: #03050a;
+  --bg-2: #070b13;
+  --panel: rgba(148, 163, 184, 0.06);
+  --panel-2: rgba(148, 163, 184, 0.1);
+  --panel-solid: #0a101b;
+  --border: rgba(148, 163, 184, 0.16);
+  --border-strong: rgba(148, 163, 184, 0.32);
+  --text: #f2f7ff;
+  --heading: #f8fbff;
+  --muted: #a2b2c7;
+  --muted-2: #7d8fa7;
   --teal: #2dd4bf;
   --teal-soft: rgba(45, 212, 191, 0.13);
   --amber: #fbbf24;
@@ -54,10 +55,10 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background:
-    radial-gradient(1100px 600px at 12% -10%, rgba(45, 212, 191, 0.11), transparent 60%),
-    radial-gradient(900px 520px at 105% 8%, rgba(167, 139, 250, 0.1), transparent 62%),
-    radial-gradient(800px 600px at 50% 120%, rgba(96, 165, 250, 0.07), transparent 60%),
-    linear-gradient(160deg, var(--bg), var(--bg-2) 60%, #070c16);
+    radial-gradient(1100px 600px at 12% -10%, rgba(45, 212, 191, 0.12), transparent 60%),
+    radial-gradient(900px 520px at 105% 8%, rgba(167, 139, 250, 0.11), transparent 62%),
+    radial-gradient(800px 600px at 50% 120%, rgba(96, 165, 250, 0.08), transparent 60%),
+    linear-gradient(160deg, var(--bg), var(--bg-2) 60%, #04070d);
   background-attachment: fixed;
 }
 
@@ -67,8 +68,8 @@ body::before {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(148, 163, 184, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.028) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(circle at 50% 40%, black, transparent 78%);
   z-index: 0;
@@ -76,6 +77,12 @@ body::before {
 
 h1, h2, h3, p, ul, ol, pre, figure {
   margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--heading);
 }
 
 code, pre {
@@ -187,7 +194,7 @@ h3 {
 }
 
 .gradient-text {
-  background: linear-gradient(100deg, var(--teal) 5%, #7dd3fc 45%, var(--violet) 95%);
+  background: linear-gradient(100deg, var(--teal) 5%, #67e8f9 45%, var(--violet) 95%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -206,6 +213,100 @@ h3 {
 
 .title-slide .lede {
   max-width: 58ch;
+}
+
+/* ---------- opening example slide ---------- */
+
+.example-slide {
+  align-items: center;
+  gap: clamp(14px, 2.4vmin, 26px);
+  text-align: center;
+}
+
+.example-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 1.8vmin, 20px);
+  min-height: 0;
+}
+
+.example-figure img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(66vh, 620px);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--panel-solid);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.example-figure figcaption {
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: clamp(13px, 1.7vmin, 19px);
+  line-height: 1.5;
+}
+
+/* ---------- durability: pull quote + visual ---------- */
+
+blockquote.lede {
+  max-width: 76ch;
+  margin: 0;
+  padding: clamp(10px, 1.5vmin, 16px) 0 clamp(10px, 1.5vmin, 16px)
+    clamp(14px, 2vmin, 20px);
+  border-left: 3px solid var(--teal);
+}
+
+blockquote.lede p {
+  margin: 0;
+}
+
+blockquote.lede footer {
+  margin-top: clamp(6px, 1vmin, 10px);
+  color: var(--muted-2);
+  font-size: clamp(11px, 1.35vmin, 15px);
+}
+
+blockquote.lede cite {
+  color: var(--teal);
+  font-style: normal;
+}
+
+.durability-grid {
+  align-items: center;
+}
+
+.visual-card {
+  display: flex;
+  flex-direction: column;
+  height: clamp(300px, 40vmin, 420px);
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel-solid);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+.visual-card .fluid-image {
+  display: block;
+  flex: 1 1 0;
+  width: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.visual-label {
+  padding: clamp(8px, 1.2vmin, 12px) clamp(12px, 1.6vmin, 16px);
+  border-top: 1px solid var(--border);
+  background: rgba(148, 163, 184, 0.04);
+  color: var(--muted);
+  font-size: clamp(11px, 1.3vmin, 14px);
+  letter-spacing: 0.04em;
 }
 
 .badge-row {
@@ -323,6 +424,10 @@ h3 {
   margin-top: clamp(12px, 1.8vmin, 22px);
 }
 
+.panel-label + .stack {
+  margin-top: clamp(12px, 1.8vmin, 20px);
+}
+
 .callout {
   display: flex;
   align-items: center;
@@ -332,7 +437,7 @@ h3 {
   border-left: 3px solid var(--teal);
   border-radius: 12px;
   background: linear-gradient(90deg, rgba(45, 212, 191, 0.085), rgba(45, 212, 191, 0.015));
-  color: #c7d6e6;
+  color: #d5e2f0;
   font-size: clamp(12px, 1.45vmin, 16.5px);
   line-height: 1.45;
 }
@@ -775,7 +880,7 @@ h3 {
 }
 
 .data-card li code {
-  color: #c7d6e6;
+  color: #d5e2f0;
   font-size: clamp(9.5px, 1.08vmin, 12px);
 }
 
@@ -1090,7 +1195,7 @@ h3 {
 .code-card {
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: #070c15;
+  background: #050a12;
   overflow: hidden;
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
 }
@@ -1128,14 +1233,14 @@ h3 {
   padding: clamp(10px, 1.4vmin, 18px);
   overflow: hidden;
   line-height: 1.55;
-  color: #c7d6e6;
+  color: #d5e2f0;
   font-size: clamp(9.5px, 1.12vmin, 12.5px);
 }
 
 .code-card .kw { color: var(--violet); }
 .code-card .str { color: #86efac; }
 .code-card .num { color: #fcd34d; }
-.code-card .key { color: #7dd3fc; }
+.code-card .key { color: #67e8f9; }
 .code-card .c { color: var(--muted-2); font-style: italic; }
 
 .fence-grid {
@@ -1205,7 +1310,7 @@ h3 {
   padding: clamp(7px, 0.95vmin, 11px) clamp(9px, 1.2vmin, 14px);
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: #070c15;
+  background: #050a12;
   overflow: hidden;
 }
 
@@ -1222,7 +1327,7 @@ h3 {
 }
 
 .key-block code {
-  color: #c7d6e6;
+  color: #d5e2f0;
   font-size: clamp(9px, 1.06vmin, 12px);
   white-space: nowrap;
   overflow: hidden;
@@ -1253,7 +1358,7 @@ h3 {
 }
 
 .mini-table td code {
-  color: #c7d6e6;
+  color: #d5e2f0;
   font-size: clamp(8.5px, 0.98vmin, 11px);
 }
 
@@ -1731,7 +1836,7 @@ h3 {
 }
 
 .api-table td code {
-  color: #c7d6e6;
+  color: #d5e2f0;
   font-size: clamp(9.5px, 1.08vmin, 12px);
 }
 
@@ -1841,7 +1946,7 @@ h3 {
 .terminal {
   border: 1px solid var(--border);
   border-radius: 10px;
-  background: #070c15;
+  background: #050a12;
   overflow: hidden;
 }
 
@@ -1935,7 +2040,7 @@ h3 {
 
 .closing-title {
   font-size: clamp(58px, 10vmin, 120px);
-  background: linear-gradient(100deg, var(--teal), #7dd3fc 55%, var(--violet));
+  background: linear-gradient(100deg, var(--teal), #67e8f9 55%, var(--violet));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -2267,7 +2372,7 @@ body.document .title-slide {
 
   html,
   body {
-    background: #060a12 !important;
+    background: #03050a !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
