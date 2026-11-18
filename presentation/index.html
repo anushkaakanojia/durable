@@ -1,9 +1,7 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en">
-
   <head>
-
     <meta charset="utf-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,54 +17,260 @@
     <link rel="stylesheet" href="styles.css" />
 
     <style>
-      .slide-intro { color: #aab5c7; max-width: 900px; margin: .25rem 0 1.5rem; }
-      .inserted-split { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.15fr); gap: clamp(18px, 3vw, 38px); align-items: center; }
-      .inserted-image-card { min-width: 0; overflow: hidden; }
-      .inserted-photo { display: block; width: 100%; height: auto; object-fit: contain; border-radius: 8px; }
-      .inserted-image-card .inserted-photo { max-height: 52vh; }
-      .inserted-flow { min-width: 0; }
-      .step-flow { display: flex; align-items: center; justify-content: center; gap: 7px; }
-      .step-box { flex: 1 1 0; min-width: 0; min-height: 104px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 12px 7px; border-radius: 14px; background: #121d33; color: #eef3ff; font-size: clamp(11px, 1vw, 15px); }
-      .step-box strong { color: #50d9cf; } .step-box span { color: #b8c5d8; margin-top: 5px; }
-      .step-arrow { color: #8190a7; font-size: 20px; }
-      .inserted-callout, .inserted-bottom-note { color: #d0d8e5; text-align: center; margin: 1.5rem auto 0; max-width: 820px; line-height: 1.55; }
-      .inserted-three-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 26px); }
-      .inserted-example-card { min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 16px; }
-      .inserted-example-card .inserted-photo { height: clamp(150px, 25vh, 245px); background: #fff; object-fit: contain; }
-      .inserted-example-card h3 { margin: 4px 0 0; } .inserted-example-card p { margin: 0; color: #b7c2d3; line-height: 1.45; }
-      .inserted-steps { display: flex; flex-direction: column; gap: 14px; }
-      .inserted-step { display: flex; align-items: flex-start; gap: 14px; padding: 18px; border-radius: 14px; background: #121d33; border-left: 4px solid #4d91ee; }
-      .inserted-step h3 { margin: 0 0 7px; } .inserted-step p { margin: 0; color: #b9c5d6; line-height: 1.45; }
-      .step-number { flex: 0 0 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; font-weight: 800; background: #202e48; }
-      .success-step { border-left-color: #5ad4a4; } .failure-step { border-left-color: #f16d85; } .compensate-step { border-left-color: #eeb65a; } .info-step { border-left-color: #4dcacb; }
-      .inserted-crash-flow { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr); gap: 10px; align-items: center; margin: 4vh 0; }
-      .crash-step { position: relative; min-height: 180px; border-radius: 18px; background: #121d33; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 24px 12px 14px; }
-      .crash-step h3 { font-size: clamp(13px, 1.2vw, 18px); line-height: 1.4; margin: 10px 0 0; }
-      .crash-number { position: absolute; top: -18px; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 18px; background: #17263d; border: 2px solid currentColor; }
-      .teal { color: #47d4d1; } .green { color: #65d5a7; } .red { color: #ef6d88; } .amber { color: #e8b65d; }
-      .crash-arrow { color: #8290a7; font-size: 24px; }
-      .inserted-warning { padding: 22px; border-radius: 12px; background: #1a2a43; color: #f07b91; font-weight: 700; text-align: center; margin: 0 auto; max-width: 900px; }
-      .inserted-idempotency .inserted-image-card .inserted-photo { max-height: 58vh; }
-      .inserted-footnote { color: #e9b65f; font-size: .9rem; margin-top: 12px; }
-      .inserted-saga-figure { max-width: 1050px; margin: 1rem auto; padding: 12px; }
-      .inserted-saga-figure .inserted-photo { max-height: 58vh; }
+      .slide-intro {
+        color: #aab5c7;
+        max-width: 900px;
+        margin: 0.25rem 0 1.5rem;
+      }
+      .inserted-split {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
+        gap: clamp(18px, 3vw, 38px);
+        align-items: center;
+      }
+      .inserted-image-card {
+        min-width: 0;
+        overflow: hidden;
+      }
+      .inserted-photo {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+      .inserted-image-card .inserted-photo {
+        max-height: 52vh;
+      }
+      .inserted-flow {
+        min-width: 0;
+      }
+      .step-flow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+      }
+      .step-box {
+        flex: 1 1 0;
+        min-width: 0;
+        min-height: 104px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 12px 7px;
+        border-radius: 14px;
+        background: #121d33;
+        color: #eef3ff;
+        font-size: clamp(11px, 1vw, 15px);
+      }
+      .step-box strong {
+        color: #50d9cf;
+      }
+      .step-box span {
+        color: #b8c5d8;
+        margin-top: 5px;
+      }
+      .step-arrow {
+        color: #8190a7;
+        font-size: 20px;
+      }
+      .inserted-callout,
+      .inserted-bottom-note {
+        color: #d0d8e5;
+        text-align: center;
+        margin: 1.5rem auto 0;
+        max-width: 820px;
+        line-height: 1.55;
+      }
+      .inserted-three-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(14px, 2vw, 26px);
+      }
+      .inserted-example-card {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+      }
+      .inserted-example-card .inserted-photo {
+        height: clamp(150px, 25vh, 245px);
+        background: #fff;
+        object-fit: contain;
+      }
+      .inserted-example-card h3 {
+        margin: 4px 0 0;
+      }
+      .inserted-example-card p {
+        margin: 0;
+        color: #b7c2d3;
+        line-height: 1.45;
+      }
+      .inserted-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .inserted-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 18px;
+        border-radius: 14px;
+        background: #121d33;
+        border-left: 4px solid #4d91ee;
+      }
+      .inserted-step h3 {
+        margin: 0 0 7px;
+      }
+      .inserted-step p {
+        margin: 0;
+        color: #b9c5d6;
+        line-height: 1.45;
+      }
+      .step-number {
+        flex: 0 0 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        font-weight: 800;
+        background: #202e48;
+      }
+      .success-step {
+        border-left-color: #5ad4a4;
+      }
+      .failure-step {
+        border-left-color: #f16d85;
+      }
+      .compensate-step {
+        border-left-color: #eeb65a;
+      }
+      .info-step {
+        border-left-color: #4dcacb;
+      }
+      .inserted-crash-flow {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(
+            0,
+            1fr
+          ) auto minmax(0, 1fr);
+        gap: 10px;
+        align-items: center;
+        margin: 4vh 0;
+      }
+      .crash-step {
+        position: relative;
+        min-height: 180px;
+        border-radius: 18px;
+        background: #121d33;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 24px 12px 14px;
+      }
+      .crash-step h3 {
+        font-size: clamp(13px, 1.2vw, 18px);
+        line-height: 1.4;
+        margin: 10px 0 0;
+      }
+      .crash-number {
+        position: absolute;
+        top: -18px;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: 18px;
+        background: #17263d;
+        border: 2px solid currentColor;
+      }
+      .teal {
+        color: #47d4d1;
+      }
+      .green {
+        color: #65d5a7;
+      }
+      .red {
+        color: #ef6d88;
+      }
+      .amber {
+        color: #e8b65d;
+      }
+      .crash-arrow {
+        color: #8290a7;
+        font-size: 24px;
+      }
+      .inserted-warning {
+        padding: 22px;
+        border-radius: 12px;
+        background: #1a2a43;
+        color: #f07b91;
+        font-weight: 700;
+        text-align: center;
+        margin: 0 auto;
+        max-width: 900px;
+      }
+      .inserted-idempotency .inserted-image-card .inserted-photo {
+        max-height: 58vh;
+      }
+      .inserted-footnote {
+        color: #e9b65f;
+        font-size: 0.9rem;
+        margin-top: 12px;
+      }
+      .inserted-saga-figure {
+        max-width: 1050px;
+        margin: 1rem auto;
+        padding: 12px;
+      }
+      .inserted-saga-figure .inserted-photo {
+        max-height: 58vh;
+      }
       @media (max-width: 850px) {
-        .inserted-split { grid-template-columns: 1fr; } .inserted-three-grid { grid-template-columns: 1fr; }
-        .inserted-example-card .inserted-photo { height: auto; max-height: 230px; }
-        .inserted-crash-flow { grid-template-columns: 1fr; gap: 12px; } .crash-arrow { transform: rotate(90deg); text-align: center; }
-        .crash-step { min-height: 110px; } .step-flow { flex-wrap: wrap; } .step-box { min-width: 100px; }
+        .inserted-split {
+          grid-template-columns: 1fr;
+        }
+        .inserted-three-grid {
+          grid-template-columns: 1fr;
+        }
+        .inserted-example-card .inserted-photo {
+          height: auto;
+          max-height: 230px;
+        }
+        .inserted-crash-flow {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .crash-arrow {
+          transform: rotate(90deg);
+          text-align: center;
+        }
+        .crash-step {
+          min-height: 110px;
+        }
+        .step-flow {
+          flex-wrap: wrap;
+        }
+        .step-box {
+          min-width: 100px;
+        }
       }
     </style>
 
-
     <noscript>
-
       <style>
-
         /* Without JavaScript, show the deck as a readable document. */
 
         .slide {
-
           display: flex !important;
 
           height: auto !important;
@@ -78,51 +282,32 @@
           padding: clamp(28px, 6vmin, 80px) clamp(20px, 5vw, 64px);
 
           border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-
         }
 
         .slide-inner {
-
           max-height: none;
-
         }
 
         .progress,
-
         .controls,
-
         .hint,
-
         .notes {
-
           display: none !important;
-
         }
-
       </style>
-
     </noscript>
-
   </head>
 
   <body class="presenting">
-
     <div class="progress" aria-hidden="true">
-
       <div class="progress-bar" id="progress-bar"></div>
-
     </div>
 
-
-
     <main class="deck" id="deck">
-
       <!-- 01 · TITLE -->
 
       <section class="slide active" id="slide-1" data-title="Title">
-
         <div class="slide-inner title-slide">
-
           <div class="orb orb-a" aria-hidden="true"></div>
 
           <div class="orb orb-b" aria-hidden="true"></div>
@@ -130,23 +315,16 @@
           <div class="eyebrow">Software Verification · Project Walkthrough</div>
 
           <h1>
-
             <span class="gradient-text"> Durable</span> <br />Workflow Engine
-
           </h1>
 
           <p class="lede">
-
             Fault-tolerant execution of long-running, multi-step business
-
             processes — with durable state, crash recovery, retries, and saga
-
             compensation.
-
           </p>
 
           <div class="badge-row">
-
             <span class="badge">TypeScript</span>
 
             <span class="badge">Node.js</span>
@@ -156,172 +334,108 @@
             <span class="badge">Fastify</span>
 
             <span class="badge">25 tests</span>
-
           </div>
 
           <div class="title-foot">
-
             <span class="dot"></span>
 
             Working vertical slice · <code>npm run dev</code> ·
 
             <code>./scripts/demo.sh</code>
-
           </div>
-
         </div>
 
         <aside class="notes">
-
           This project asks a simple question: what happens when a multi-step
-
           backend process crashes halfway through? The engine is a durable state
-
           machine that makes progress survive process death, retries safely, and
-
           rolls back completed work when a later step cannot succeed.
-
         </aside>
-
       </section>
-
-
 
       <!-- 02 · DURABILITY -->
 
       <section class="slide" id="slide-2" data-title="What is durability?">
-
         <div class="slide-inner">
-
           <div class="slide-head">
-
             <div class="eyebrow">02 · Definition</div>
 
             <h2>What is durability?</h2>
-
           </div>
 
-
-
           <blockquote
-
             class="lede"
-
             cite="https\://en.wikipedia.org/wiki/Durability"
-
           >
-
             <p>
-
               Durability is the ability of a physical product to remain
-
               functional, without requiring excessive maintenance or repair,
-
               when faced with the challenges of normal operation over its design
-
               lifetime.
-
             </p>
 
             <footer>— Via <cite>Wikipedia</cite></footer>
-
           </blockquote>
-
-
 
           <!-- Grid featuring the requested drop of water visual -->
 
           <div class="grid-2">
-
             <figure class="visual-card">
-
               <img
-
                 src="Drop_of_water.jpg"
-
                 alt="Close-up of a single drop of water creating concentric ripple waves"
-
                 class="fluid-image"
-
               />
 
               <figcaption class="visual-label">Waterproof textile</figcaption>
-
             </figure>
-
           </div>
-
         </div>
 
         <aside class="notes">
-
           Durability is about state, not side effects. The engine writes every
-
           run, step, and attempt to SQLite in WAL mode, so a committed
-
           transition survives process death. That is what lets a different
-
           worker pick up an interrupted run and continue from the last recorded
-
           point instead of starting over.
-
         </aside>
-
       </section>
-
-
 
       <!-- 03 · EXAMPLE -->
 
       <section class="slide" id="slide-3" data-title="The example">
-
         <div class="slide-inner example-slide">
-
           <div class="eyebrow">03 · The example</div>
 
           <figure class="example-figure">
-
             <img
-
               src="amazon-example.png"
-
               alt="Amazon order example used as the running scenario for the deck"
-
               width="1889"
-
               height="946"
-
             />
 
             <figcaption>
-
               An everyday order is a multi-step process with real side effects —
-
               the kind of workflow this engine makes durable.
-
             </figcaption>
-
           </figure>
-
         </div>
 
         <aside class="notes">
-
           Start with a familiar example: an online order. Behind one click there
-
           is a sequence of steps — inventory, payment, shipping — each talking
-
           to a different service and each producing a real side effect. That
-
           sequence is the workflow the rest of the deck makes durable.
-
         </aside>
-
       </section>
 
-
       <!-- 04 · BEHIND THE TRACKING PAGE -->
-      <section class="slide" id="slide-4" data-title="The visible delivery timeline is a workflow">
+      <section
+        class="slide"
+        id="slide-4"
+        data-title="The visible delivery timeline is a workflow"
+      >
         <div class="slide-inner">
           <div class="slide-head">
             <div class="eyebrow">04 · Behind the tracking page</div>
@@ -330,326 +444,259 @@
           <p class="slide-intro">The screenshot shows shipment events.</p>
           <div class="inserted-split">
             <figure class="visual-card inserted-image-card">
-              <img src="amazon-tracking-timeline.jpg" alt="Amazon shipment tracking timeline" class="inserted-photo">
+              <img
+                src="amazon-tracking-timeline.jpg"
+                alt="Amazon shipment tracking timeline"
+                class="inserted-photo"
+              />
             </figure>
             <div class="inserted-flow">
               <div class="step-flow">
-                <div class="step-box"><strong>Order</strong><span>created</span></div>
+                <div class="step-box">
+                  <strong>Order</strong><span>created</span>
+                </div>
                 <div class="step-arrow">→</div>
-                <div class="step-box"><strong>Payment</strong><span>authorised</span></div>
+                <div class="step-box">
+                  <strong>Payment</strong><span>authorised</span>
+                </div>
                 <div class="step-arrow">→</div>
-                <div class="step-box"><strong>Inventory</strong><span>reserved</span></div>
+                <div class="step-box">
+                  <strong>Inventory</strong><span>reserved</span>
+                </div>
                 <div class="step-arrow">→</div>
-                <div class="step-box"><strong>Shipment</strong><span>prepared</span></div>
+                <div class="step-box">
+                  <strong>Shipment</strong><span>prepared</span>
+                </div>
                 <div class="step-arrow">→</div>
                 <div class="step-box"><strong>Delivered</strong></div>
               </div>
-              <p class="inserted-callout">Each stage can depend on another service. A failure between stages must not lose the workflow's progress.</p>
+              <p class="inserted-callout">
+                Each stage can depend on another service. A failure between
+                stages must not lose the workflow's progress.
+              </p>
             </div>
           </div>
         </div>
         <aside class="notes">
-          The tracking page gives the customer a simple timeline, but each milestone depends on work happening behind the scenes. Order creation, payment authorisation, inventory reservation and shipment preparation may be handled by different services. If one stage fails or the process restarts, the system must know which stages have already completed.
+          The tracking page gives the customer a simple timeline, but each
+          milestone depends on work happening behind the scenes. Order creation,
+          payment authorisation, inventory reservation and shipment preparation
+          may be handled by different services. If one stage fails or the
+          process restarts, the system must know which stages have already
+          completed.
         </aside>
       </section>
 
       <!-- 05 · THIS PATTERN IS EVERYWHERE -->
-      <section class="slide" id="slide-5" data-title="Different products, the same coordination problem">
+      <section
+        class="slide"
+        id="slide-5"
+        data-title="Different products, the same coordination problem"
+      >
         <div class="slide-inner">
           <div class="slide-head">
             <div class="eyebrow">05 · This pattern is everywhere</div>
             <h2>Different products. The same coordination problem.</h2>
           </div>
-          <p class="slide-intro">These familiar interfaces show how multi-step operations appear in everyday technology.</p>
+          <p class="slide-intro">
+            These familiar interfaces show how multi-step operations appear in
+            everyday technology.
+          </p>
           <div class="inserted-three-grid">
             <article class="visual-card inserted-example-card">
-              <img src="payments-dashboard.jpg" alt="Payments dashboard showing transaction statuses" class="inserted-photo">
+              <img
+                src="payments-dashboard.jpg"
+                alt="Payments dashboard showing transaction statuses"
+                class="inserted-photo"
+              />
               <h3>Payments</h3>
-              <p>A transaction moves through statuses such as succeeded, refunded or failed.</p>
+              <p>
+                A transaction moves through statuses such as succeeded, refunded
+                or failed.
+              </p>
             </article>
             <article class="visual-card inserted-example-card">
-              <img src="food-delivery-tracking.jpg" alt="Food delivery app showing preparation and courier progress" class="inserted-photo">
+              <img
+                src="food-delivery-tracking.jpg"
+                alt="Food delivery app showing preparation and courier progress"
+                class="inserted-photo"
+              />
               <h3>Food delivery</h3>
-              <p>Restaurant preparation, courier pickup and delivery progress must stay coordinated.</p>
+              <p>
+                Restaurant preparation, courier pickup and delivery progress
+                must stay coordinated.
+              </p>
             </article>
             <article class="visual-card inserted-example-card">
-              <img src="cloud-infrastructure-dashboard.jpg" alt="Cloud infrastructure dashboard showing instance state" class="inserted-photo">
+              <img
+                src="cloud-infrastructure-dashboard.jpg"
+                alt="Cloud infrastructure dashboard showing instance state"
+                class="inserted-photo"
+              />
               <h3>Cloud infrastructure</h3>
-              <p>An instance moves through lifecycle states before it is ready to use.</p>
+              <p>
+                An instance moves through lifecycle states before it is ready to
+                use.
+              </p>
             </article>
           </div>
         </div>
         <aside class="notes">
-          This is not specific to online shopping. Payments have transaction lifecycles, food delivery coordinates restaurants and couriers, and cloud infrastructure moves resources through provisioning states. In each case, a user sees a simple status while the system coordinates multiple steps and services.
+          This is not specific to online shopping. Payments have transaction
+          lifecycles, food delivery coordinates restaurants and couriers, and
+          cloud infrastructure moves resources through provisioning states. In
+          each case, a user sees a simple status while the system coordinates
+          multiple steps and services.
         </aside>
       </section>
 
       <!-- 06 · ANOTHER REAL-WORLD SCENARIO -->
-      <section class="slide" id="slide-6" data-title="What if a travel booking only partly succeeds?">
+      <section
+        class="slide"
+        id="slide-6"
+        data-title="What if a travel booking only partly succeeds?"
+      >
         <div class="slide-inner">
           <div class="slide-head">
             <div class="eyebrow">06 · Another real-world scenario</div>
             <h2>What if a travel booking only partly succeeds?</h2>
           </div>
-          <p class="slide-intro">A travel booking may involve several independent reservations and payments.</p>
+          <p class="slide-intro">
+            A travel booking may involve several independent reservations and
+            payments.
+          </p>
           <div class="inserted-split">
             <figure class="visual-card inserted-image-card">
-              <img src="travel-booking-confirmation.jpg" alt="Travel booking interface" class="inserted-photo">
+              <img
+                src="travel-booking-confirmation.jpg"
+                alt="Travel booking interface"
+                class="inserted-photo"
+              />
             </figure>
             <div class="inserted-steps">
               <article class="inserted-step success-step">
                 <span class="step-number">1</span>
-                <div><h3>Flight booked</h3><p>Reservation confirmed.</p></div>
+                <div>
+                  <h3>Flight booked</h3>
+                  <p>Reservation confirmed.</p>
+                </div>
               </article>
               <article class="inserted-step failure-step">
                 <span class="step-number">2</span>
-                <div><h3>Hotel fails</h3><p>No room is available.</p></div>
+                <div>
+                  <h3>Hotel fails</h3>
+                  <p>No room is available.</p>
+                </div>
               </article>
               <article class="inserted-step compensate-step">
                 <span class="step-number">3</span>
-                <div><h3>Compensate</h3><p>Cancel/refund the flight reservation where supported.</p></div>
+                <div>
+                  <h3>Compensate</h3>
+                  <p>Cancel/refund the flight reservation where supported.</p>
+                </div>
               </article>
             </div>
           </div>
-          <p class="inserted-bottom-note">This is the motivation for Saga-style compensation: undo completed steps when a later step cannot proceed.</p>
+          <p class="inserted-bottom-note">
+            This is the motivation for Saga-style compensation: undo completed
+            steps when a later step cannot proceed.
+          </p>
         </div>
         <aside class="notes">
-          Imagine booking a flight and a hotel as one travel plan. The flight booking succeeds, but the hotel reservation fails because no room is available. We cannot simply roll back a single database transaction across two independent providers. Instead, the system may need a compensating action, such as cancelling or refunding the flight where the provider allows it.
-        </aside>
-      </section>
-
-      <!-- 07 · THE FAILURE WINDOW -->
-      <section class="slide" id="slide-7" data-title="A crash can happen at exactly the wrong moment">
-        <div class="slide-inner">
-          <div class="slide-head">
-            <div class="eyebrow">07 · The failure window</div>
-            <h2>A crash can happen at exactly the wrong moment</h2>
-          </div>
-          <p class="slide-intro">Imagine a payment provider accepts the charge, but the workflow engine crashes before persisting the result.</p>
-          <div class="inserted-crash-flow">
-            <article class="crash-step"><span class="crash-number teal">1</span><h3>Send payment<br>request</h3></article>
-            <span class="crash-arrow">→</span>
-            <article class="crash-step"><span class="crash-number green">2</span><h3>Provider charges<br>customer</h3></article>
-            <span class="crash-arrow">→</span>
-            <article class="crash-step"><span class="crash-number red">!</span><h3>Engine crashes<br>before saving</h3></article>
-            <span class="crash-arrow">→</span>
-            <article class="crash-step"><span class="crash-number amber">↻</span><h3>Workflow retries<br>after restart</h3></article>
-          </div>
-          <div class="inserted-warning">Without protection, the retry may charge the customer twice.</div>
-          <p class="inserted-bottom-note">A durable engine must recover progress and make repeated attempts safe.</p>
-        </div>
-        <aside class="notes">
-          This is a particularly dangerous failure window. The payment provider has charged the customer, but the workflow engine crashes before recording the successful result. After restart, the engine may believe the step is incomplete and retry it. Without a safe retry mechanism, the customer could be charged twice.
-        </aside>
-      </section>
-
-      <!-- 08 · IDEMPOTENCY -->
-      <section class="slide" id="slide-8" data-title="Same request key. One effective payment.">
-        <div class="slide-inner">
-          <div class="slide-head">
-            <div class="eyebrow">08 · Idempotency</div>
-            <h2>Same request key. One effective payment.</h2>
-          </div>
-          <p class="slide-intro">A stable idempotency key lets a payment service recognise a repeated request.</p>
-          <div class="inserted-split inserted-idempotency">
-            <figure class="visual-card inserted-image-card">
-              <img src="idempotency-comparison.jpg" alt="Comparison of payment retries without and with idempotency" class="inserted-photo">
-            </figure>
-            <div class="inserted-steps">
-              <article class="inserted-step info-step">
-                <h3>First attempt</h3><p>Payment succeeds, but the response is lost.</p>
-              </article>
-              <article class="inserted-step compensate-step">
-                <h3>Retry</h3><p>The engine sends the same idempotency key.</p>
-              </article>
-              <article class="inserted-step success-step">
-                <h3>Safe outcome</h3><p>Provider returns the original result.</p>
-              </article>
-            </div>
-          </div>
-          <p class="inserted-footnote">Important: this depends on the downstream provider supporting and correctly enforcing idempotency.</p>
-        </div>
-        <aside class="notes">
-          The retry uses the same stable idempotency key as the original request. If the payment provider supports and correctly enforces idempotency, it recognises that this operation has already succeeded and returns the original result rather than creating another charge. This is an important dependency on the external provider.
-        </aside>
-      </section>
-
-      <!-- 09 · SAGA COMPENSATION -->
-      <section class="slide" id="slide-9" data-title="If a later step fails, reverse earlier successful steps">
-        <div class="slide-inner">
-          <div class="slide-head">
-            <div class="eyebrow">09 · Saga compensation</div>
-            <h2>If a later step fails, reverse earlier successful steps</h2>
-          </div>
-          <p class="slide-intro">A Saga uses compensating actions rather than assuming one global transaction can undo everything.</p>
-          <figure class="visual-card inserted-saga-figure">
-            <img src="saga-compensation-flow.jpg" alt="Saga workflow with forward transactions and compensating transactions" class="inserted-photo">
-          </figure>
-          <p class="inserted-bottom-note">Example: cancel delivery → reverse inventory update → reverse payment → cancel order (where each compensation is possible).</p>
-        </div>
-        <aside class="notes">
-          A Saga represents a business process as a sequence of local transactions. If a later step fails, the system executes compensating actions for earlier successful steps. These are not literal rollbacks: they are new operations, and each compensation may have its own failure modes or limitations.
+          Imagine booking a flight and a hotel as one travel plan. The flight
+          booking succeeds, but the hotel reservation fails because no room is
+          available. We cannot simply roll back a single database transaction
+          across two independent providers. Instead, the system may need a
+          compensating action, such as cancelling or refunding the flight where
+          the provider allows it.
         </aside>
       </section>
 
       <!-- 04 · SERVICE BOUNDARIES · ONE PRODUCT PAGE -->
 
       <section
-
         class="slide"
-
         id="slide-10"
-
         data-title="One product page, many boundaries"
-
       >
-
         <div class="slide-inner">
-
           <div class="slide-head">
-
-            <div class="eyebrow">10 · Boundaries</div>
+            <div class="eyebrow">7 · Boundaries</div>
 
             <h2>One product page, many owners</h2>
-
           </div>
 
-
-
           <div class="grid-2">
-
             <figure class="visual-card" style="grid-column: 1 / -1">
-
               <svg
-
                 viewBox="0 0 920 460"
-
                 role="img"
-
                 aria-labelledby="bnd-title bnd-desc"
-
                 style="width: 100%; height: auto; color: inherit"
-
                 font-family="inherit"
-
               >
-
                 <title id="bnd-title">
-
                   Service boundaries behind one product page
-
                 </title>
 
                 <desc id="bnd-desc">
-
                   The product page reads synchronously from catalog, pricing,
-
                   inventory, marketing and reviews services. Placing an order
-
                   publishes an event on a bus that orders, billing, payments,
-
                   finance and fulfillment services consume asynchronously.
-
                 </desc>
 
-
-
                 <defs>
-
                   <marker
-
                     id="arr"
-
                     viewBox="0 0 10 10"
-
                     refX="8"
-
                     refY="5"
-
                     markerWidth="7"
-
                     markerHeight="7"
-
                     orient="auto-start-reverse"
-
                   >
-
                     <path
-
                       d="M0 0L10 5L0 10z"
-
                       fill="currentColor"
-
                       fill-opacity=".7"
-
                     />
-
                   </marker>
-
                 </defs>
-
-
 
                 <!-- Lane labels -->
 
                 <text
-
                   x="20"
-
                   y="22"
-
                   font-size="13"
-
                   fill="currentColor"
-
                   fill-opacity=".65"
-
                   letter-spacing="1.2"
-
                 >
-
                   READ PATH · SYNCHRONOUS APIs
-
                 </text>
 
                 <text
-
                   x="20"
-
                   y="352"
-
                   font-size="13"
-
                   fill="currentColor"
-
                   fill-opacity=".65"
-
                   letter-spacing="1.2"
-
                 >
-
                   WRITE PATH · ASYNC EVENTS
-
                 </text>
-
-
 
                 <!-- Read-path services -->
 
                 <g
-
                   stroke="currentColor"
-
                   stroke-opacity=".5"
-
                   fill="currentColor"
-
                   fill-opacity=".06"
-
                   stroke-width="1.5"
-
                 >
-
                   <rect x="20" y="34" width="160" height="64" rx="10" />
 
                   <rect x="200" y="34" width="160" height="64" rx="10" />
@@ -659,157 +706,95 @@
                   <rect x="560" y="34" width="160" height="64" rx="10" />
 
                   <rect x="740" y="34" width="160" height="64" rx="10" />
-
                 </g>
 
                 <g fill="currentColor" text-anchor="middle">
-
                   <text x="100" y="62" font-size="16" font-weight="700">
-
                     Marketing
-
                   </text>
 
                   <text x="100" y="82" font-size="12" fill-opacity=".7">
-
                     titles, images, specs
-
                   </text>
 
                   <text x="280" y="62" font-size="16" font-weight="700">
-
                     Pricing
-
                   </text>
 
                   <text x="280" y="82" font-size="12" fill-opacity=".7">
-
                     price, discounts
-
                   </text>
 
                   <text x="460" y="62" font-size="16" font-weight="700">
-
                     Inventory
-
                   </text>
 
                   <text x="460" y="82" font-size="12" fill-opacity=".7">
-
                     stock, availability
-
                   </text>
 
                   <text x="640" y="62" font-size="16" font-weight="700">
-
                     Marketing
-
                   </text>
 
                   <text x="640" y="82" font-size="12" fill-opacity=".7">
-
                     recs, promos, ads
-
                   </text>
 
                   <text x="820" y="62" font-size="16" font-weight="700">
-
                     Reviews
-
                   </text>
 
                   <text x="820" y="82" font-size="12" fill-opacity=".7">
-
                     ratings, Q&amp;A
-
                   </text>
-
                 </g>
-
-
 
                 <!-- Product page (aggregator) -->
 
                 <rect
-
                   x="320"
-
                   y="180"
-
                   width="280"
-
                   height="76"
-
                   rx="12"
-
                   fill="currentColor"
-
                   fill-opacity=".14"
-
                   stroke="currentColor"
-
                   stroke-width="2"
-
                 />
 
                 <text
-
                   x="460"
-
                   y="214"
-
                   text-anchor="middle"
-
                   font-size="18"
-
                   font-weight="700"
-
                   fill="currentColor"
-
                 >
-
                   Product page
-
                 </text>
 
                 <text
-
                   x="460"
-
                   y="236"
-
                   text-anchor="middle"
-
                   font-size="12"
-
                   fill="currentColor"
-
                   fill-opacity=".75"
-
                 >
-
                   composes responses, owns no data
-
                 </text>
-
-
 
                 <!-- Read arrows (service -> page) -->
 
                 <g
-
                   stroke="currentColor"
-
                   stroke-opacity=".6"
-
                   stroke-width="1.5"
-
                   fill="none"
-
                   marker-end="url(#arr)"
-
                 >
-
                   <path d="M100 98 C100 150, 380 140, 380 180" />
 
                   <path d="M280 98 C280 140, 420 140, 420 180" />
@@ -819,47 +804,27 @@
                   <path d="M640 98 C640 140, 500 140, 500 180" />
 
                   <path d="M820 98 C820 150, 540 140, 540 180" />
-
                 </g>
 
-
-
                 <text
-
                   x="422"
-
                   y="298"
-
                   font-size="16"
-
                   fill="currentColor"
-
                   fill-opacity=".75"
-
                 >
-
                   “Buy now”
-
                 </text>
-
-
 
                 <!-- Write-path services -->
 
                 <g
-
                   stroke="currentColor"
-
                   stroke-opacity=".5"
-
                   fill="currentColor"
-
                   fill-opacity=".06"
-
                   stroke-width="1.5"
-
                 >
-
                   <rect x="20" y="366" width="160" height="64" rx="10" />
 
                   <rect x="200" y="366" width="160" height="64" rx="10" />
@@ -869,253 +834,146 @@
                   <rect x="560" y="366" width="160" height="64" rx="10" />
 
                   <rect x="740" y="366" width="160" height="64" rx="10" />
-
                 </g>
 
                 <g fill="currentColor" text-anchor="middle">
-
                   <text x="100" y="394" font-size="16" font-weight="700">
-
                     Orders
-
                   </text>
 
                   <text x="100" y="414" font-size="12" fill-opacity=".7">
-
                     order state machine
-
                   </text>
 
                   <text x="280" y="394" font-size="16" font-weight="700">
-
                     Billing
-
                   </text>
 
                   <text x="280" y="414" font-size="12" fill-opacity=".7">
-
                     invoices, charges
-
                   </text>
 
                   <text x="460" y="394" font-size="16" font-weight="700">
-
                     Payments
-
                   </text>
 
                   <text x="460" y="414" font-size="12" fill-opacity=".7">
-
                     auth, capture, refunds
-
                   </text>
 
                   <text x="640" y="394" font-size="16" font-weight="700">
-
                     Finance
-
                   </text>
 
                   <text x="640" y="414" font-size="12" fill-opacity=".7">
-
                     ledger, tax, revenue
-
                   </text>
 
                   <text x="820" y="394" font-size="16" font-weight="700">
-
                     Fulfillment
-
                   </text>
 
                   <text x="820" y="414" font-size="12" fill-opacity=".7">
-
                     pick, pack, ship
-
                   </text>
-
                 </g>
-
               </svg>
-
             </figure>
-
           </div>
-
         </div>
 
         <aside class="notes">
-
           This is one product page, and almost every box is a different team
-
           with its own code, its own database, and its own on-call. The page
-
           itself is only an aggregator: it calls catalog, pricing, inventory,
-
           marketing and reviews in parallel and degrades gracefully if one is
-
           slow, for example by hiding recommendations rather than failing the
-
           page. The bottom half is different. When the customer buys, the system
-
           records an OrderPlaced event, and billing, payments, finance and
-
           fulfillment react on their own schedule. That is why the money path
-
           can be eventually consistent and still correct: each consumer is
-
           idempotent, so a redelivered event cannot charge twice. The key point
-
           for the audience is that reads favor availability and speed, while
-
           writes that move money favor correctness, and the boundaries let each
-
           side make that choice independently.
-
         </aside>
-
       </section>
 
       <!-- 05 · QUESTION · LOST WRITES -->
 
       <section
-
         class="slide"
-
-        id="slide-11"
-
+        id="slide-8"
         data-title="What if a message is lost?"
-
       >
-
         <div class="slide-inner">
-
           <div class="slide-head">
-
-            <div class="eyebrow">11 · Question</div>
+            <div class="eyebrow">8 · Question</div>
 
             <h2>How do the services stay in sync?</h2>
-
           </div>
 
-
-
           <blockquote class="lede">
-
             <p>
-
               Billing, finance and fulfillment never share a database with
-
               Orders. So what happens when a write or a request is lost
-
               somewhere on the network?
-
             </p>
 
             <footer>
-
               — Assume the network will drop, delay, and duplicate messages
-
             </footer>
-
           </blockquote>
 
-
-
           <div class="grid-2">
-
             <figure class="visual-card" style="grid-column: 1 / -1">
-
               <svg
-
                 viewBox="0 0 920 300"
-
                 role="img"
-
                 aria-labelledby="sync-title sync-desc"
-
                 style="width: 100%; height: auto; color: inherit"
-
                 font-family="inherit"
-
               >
-
                 <title id="sync-title">
-
                   Reliable event delivery between services
-
                 </title>
 
                 <desc id="sync-desc">
-
                   The Orders service writes the order and an outbox row in one
-
                   database transaction. A relay publishes the outbox row to the
-
                   event bus and retries until acknowledged. The bus delivers to
-
                   the billing consumer at least once; the consumer deduplicates
-
                   by event id. Messages that keep failing go to a dead-letter
-
                   queue, and a reconciliation job repairs any remaining drift.
-
                 </desc>
 
-
-
                 <defs>
-
                   <marker
-
                     id="arr2"
-
                     viewBox="0 0 10 10"
-
                     refX="8"
-
                     refY="5"
-
                     markerWidth="7"
-
                     markerHeight="7"
-
                     orient="auto-start-reverse"
-
                   >
-
                     <path
-
                       d="M0 0L10 5L0 10z"
-
                       fill="currentColor"
-
                       fill-opacity=".7"
-
                     />
-
                   </marker>
-
                 </defs>
-
-
 
                 <!-- Boxes -->
 
                 <g
-
                   stroke="currentColor"
-
                   stroke-opacity=".5"
-
                   fill="currentColor"
-
                   fill-opacity=".06"
-
                   stroke-width="1.5"
-
                 >
-
                   <rect x="20" y="40" width="200" height="120" rx="12" />
 
                   <rect x="270" y="70" width="140" height="60" rx="10" />
@@ -1125,181 +983,111 @@
                   <rect x="680" y="40" width="220" height="120" rx="12" />
 
                   <rect
-
                     x="470"
-
                     y="210"
-
                     width="140"
-
                     height="56"
-
                     rx="10"
-
                     stroke-dasharray="6 4"
-
                   />
 
                   <rect
-
                     x="20"
-
                     y="210"
-
                     width="390"
-
                     height="56"
-
                     rx="10"
-
                     stroke-dasharray="6 4"
-
                   />
-
                 </g>
 
-
-
                 <g fill="currentColor" text-anchor="middle">
-
                   <!-- Orders -->
 
                   <text x="120" y="72" font-size="16" font-weight="700">
-
                     Orders service
-
                   </text>
 
                   <text x="120" y="98" font-size="12" fill-opacity=".75">
-
                     ONE DB transaction:
-
                   </text>
 
                   <text x="120" y="118" font-size="12" fill-opacity=".75">
-
                     order row + outbox row
-
                   </text>
 
                   <text x="120" y="142" font-size="11" fill-opacity=".6">
-
                     no publish inside the tx
-
                   </text>
-
-
 
                   <!-- Relay -->
 
                   <text x="340" y="96" font-size="15" font-weight="700">
-
                     Outbox relay
-
                   </text>
 
                   <text x="340" y="116" font-size="12" fill-opacity=".75">
-
                     retry + backoff
-
                   </text>
-
-
 
                   <!-- Bus -->
 
                   <text x="540" y="96" font-size="15" font-weight="700">
-
                     Event bus
-
                   </text>
 
                   <text x="540" y="116" font-size="12" fill-opacity=".75">
-
                     at-least-once
-
                   </text>
-
-
 
                   <!-- Consumer -->
 
                   <text x="790" y="72" font-size="16" font-weight="700">
-
                     Billing consumer
-
                   </text>
 
                   <text x="790" y="98" font-size="12" fill-opacity=".75">
-
                     1\. seen event_id? skip
-
                   </text>
 
                   <text x="790" y="118" font-size="12" fill-opacity=".75">
-
                     2\. charge + record id (one tx)
-
                   </text>
 
                   <text x="790" y="142" font-size="11" fill-opacity=".6">
-
                     ack only after commit
-
                   </text>
-
-
 
                   <!-- DLQ -->
 
                   <text x="540" y="234" font-size="14" font-weight="700">
-
                     Dead-letter queue
-
                   </text>
 
                   <text x="540" y="254" font-size="12" fill-opacity=".75">
-
                     alert + replay
-
                   </text>
-
-
 
                   <!-- Reconciliation -->
 
                   <text x="215" y="234" font-size="14" font-weight="700">
-
                     Reconciliation job
-
                   </text>
 
                   <text x="215" y="254" font-size="12" fill-opacity=".75">
-
                     compare Orders vs Billing, repair drift
-
                   </text>
-
                 </g>
-
-
 
                 <!-- Arrows -->
 
                 <g
-
                   stroke="currentColor"
-
                   stroke-opacity=".7"
-
                   stroke-width="1.8"
-
                   fill="none"
-
                   marker-end="url(#arr2)"
-
                 >
-
                   <path d="M220 100 L270 100" />
 
                   <path d="M410 100 L470 100" />
@@ -1307,45 +1095,26 @@
                   <path d="M610 100 L680 100" />
 
                   <path d="M540 130 L540 210" stroke-dasharray="6 4" />
-
                 </g>
-
-
 
                 <!-- Ack path back (dashed, reversed) -->
 
                 <path
-
                   d="M680 140 C640 180, 440 180, 410 130"
-
                   stroke="currentColor"
-
                   stroke-opacity=".5"
-
                   stroke-width="1.5"
-
                   stroke-dasharray="3 4"
-
                   fill="none"
-
                   marker-end="url(#arr2)"
-
                 />
 
-
-
                 <g
-
                   fill="currentColor"
-
                   fill-opacity=".75"
-
                   font-size="11"
-
                   text-anchor="middle"
-
                 >
-
                   <text x="545" y="190">no ack → redeliver</text>
 
                   <text x="560" y="176" dx="62">ack</text>
@@ -1353,385 +1122,222 @@
                   <text x="620" y="190" dx="0"></text>
 
                   <text x="600" y="198" dx="0"></text>
-
                 </g>
 
                 <text
-
                   x="590"
-
                   y="186"
-
                   font-size="11"
-
                   fill="currentColor"
-
                   fill-opacity=".75"
-
                   transform="translate(0,0)"
-
                   display="none"
-
                 >
-
                   after N failures
-
                 </text>
 
                 <text
-
                   x="548"
-
                   y="172"
-
                   font-size="11"
-
                   fill="currentColor"
-
                   fill-opacity=".75"
-
                   text-anchor="start"
-
                   dx="0"
-
                   display="none"
-
                 ></text>
 
                 <text
-
                   x="556"
-
                   y="176"
-
                   font-size="11"
-
                   fill="currentColor"
-
                   fill-opacity=".75"
-
                   text-anchor="start"
-
                   display="none"
-
                 ></text>
 
                 <text
-
                   x="552"
-
                   y="170"
-
                   font-size="11"
-
                   fill="currentColor"
-
                   fill-opacity=".75"
-
                   text-anchor="start"
-
                 >
-
                   after N failures
-
                 </text>
-
               </svg>
 
               <figcaption class="visual-label">
-
                 Every hop can fail, so every hop is retried and every consumer
-
                 is idempotent.
-
               </figcaption>
-
             </figure>
 
-
-
             <div class="visual-card" style="grid-column: 1 / -1">
-
               <ul>
-
                 <li>
-
                   <strong>Crash between "write" and "publish":</strong>
 
                   transactional outbox. The event is saved with the data, so it
-
                   cannot be lost or exist without the order.
-
                 </li>
 
                 <li>
-
                   <strong>Message lost in transit:</strong> the relay retries
-
                   with exponential backoff and jitter until the bus
-
                   acknowledges.
-
                 </li>
 
                 <li>
-
                   <strong>Ack lost, so the event arrives twice:</strong>
 
                   consumers deduplicate by event id (or an idempotency key sent
-
                   by the client), so a redelivery cannot charge twice.
-
                 </li>
 
                 <li>
-
                   <strong>Poison or permanently failing message:</strong>
 
                   after N attempts it goes to a dead-letter queue, with an alert
-
                   and a manual or automatic replay.
-
                 </li>
 
                 <li>
-
                   <strong>Silent drift:</strong> a periodic reconciliation job
-
                   compares the systems of record and repairs differences.
-
                 </li>
 
                 <li>
-
                   <strong>Multi-step failure:</strong> a saga (for example,
-
                   payment fails after stock was reserved) runs compensating
-
                   actions such as releasing the stock.
-
                 </li>
-
               </ul>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       <!-- 06 · COMMUNICATION · SYNC VS ASYNC + DUAL WRITE -->
 
       <section
-
         class="slide"
-
-        id="slide-12"
-
+        id="slide-9"
         data-title="Telling other boundaries about a change"
-
       >
-
         <div class="slide-inner">
-
           <div class="slide-head">
-
-            <div class="eyebrow">12 · Communication</div>
+            <div class="eyebrow">9 · Communication</div>
 
             <h2>Telling other boundaries that something changed</h2>
-
           </div>
 
-
-
           <blockquote class="lede">
-
             <p>
-
               A service can reach another boundary in two ways: call it directly
-
               and wait (sync), or publish a message to a broker and let others
-
               react in their own time (async).
-
             </p>
 
             <footer>— Message brokers: Kafka, RabbitMQ, Amazon SQS/SNS</footer>
-
           </blockquote>
 
-
-
           <div class="grid-2">
-
             <div class="visual-card">
-
               <h3>Synchronous</h3>
 
               <ul>
-
                 <li>
-
                   <strong>How:</strong> request/response over HTTP or gRPC. The
-
                   caller waits for the answer.
-
                 </li>
 
                 <li>
-
                   <strong>Good for:</strong> reads that need an answer now, such
-
                   as price and stock on the product page.
-
                 </li>
 
                 <li>
-
                   <strong>Cost:</strong> the caller is coupled in time to the
-
                   callee. If it is slow or down, the caller is slow or down too.
-
                 </li>
-
               </ul>
-
             </div>
 
-
-
             <div class="visual-card">
-
               <h3>Asynchronous (message broker)</h3>
 
               <ul>
-
                 <li>
-
                   <strong>How:</strong> the owner publishes an event such as
 
                   <code>OrderPlaced</code>. It does not know who is listening.
-
                 </li>
 
                 <li>
-
                   <strong>Good for:</strong> notifying other boundaries of a
-
                   change: billing, finance, fulfillment, marketing.
-
                 </li>
 
                 <li>
-
                   <strong>Cost:</strong> eventual consistency, duplicate
-
                   deliveries, and no ordering guarantee unless you design for
-
                   it.
-
                 </li>
-
               </ul>
-
             </div>
-
           </div>
 
-
-
           <div class="grid-2">
-
             <figure class="visual-card" style="grid-column: 1 / -1">
-
               <h3>The write-and-publish problem</h3>
 
               <svg
-
                 viewBox="0 0 920 250"
-
                 role="img"
-
                 aria-labelledby="dw-title dw-desc"
-
                 style="width: 100%; height: auto; color: inherit"
-
                 font-family="inherit"
-
               >
-
                 <title id="dw-title">The dual-write problem</title>
 
                 <desc id="dw-desc">
-
                   The Orders service writes to its database, which succeeds,
-
                   then tries to publish an event to the broker, but crashes
-
                   before the publish. The database has the order, but the broker
-
                   never receives the event, so other services never learn about
-
                   it.
-
                 </desc>
 
-
-
                 <defs>
-
                   <marker
-
                     id="arr3"
-
                     viewBox="0 0 10 10"
-
                     refX="8"
-
                     refY="5"
-
                     markerWidth="7"
-
                     markerHeight="7"
-
                     orient="auto-start-reverse"
-
                   >
-
                     <path
-
                       d="M0 0L10 5L0 10z"
-
                       fill="currentColor"
-
                       fill-opacity=".7"
-
                     />
-
                   </marker>
-
                 </defs>
-
-
 
                 <!-- Boxes -->
 
                 <g
-
                   stroke="currentColor"
-
                   stroke-opacity=".5"
-
                   fill="currentColor"
-
                   fill-opacity=".06"
-
                   stroke-width="1.5"
-
                 >
-
                   <rect x="20" y="85" width="190" height="80" rx="12" />
 
                   <rect x="340" y="20" width="190" height="70" rx="10" />
@@ -1741,115 +1347,66 @@
                   <rect x="620" y="20" width="280" height="70" rx="10" />
 
                   <rect
-
                     x="620"
-
                     y="160"
-
                     width="280"
-
                     height="70"
-
                     rx="10"
-
                     stroke-dasharray="6 4"
-
                   />
-
                 </g>
 
-
-
                 <g fill="currentColor" text-anchor="middle">
-
                   <text x="115" y="120" font-size="16" font-weight="700">
-
                     Orders service
-
                   </text>
 
                   <text x="115" y="142" font-size="12" fill-opacity=".75">
-
                     handles “Buy now”
-
                   </text>
 
-
-
                   <text x="435" y="50" font-size="15" font-weight="700">
-
                     Orders database
-
                   </text>
 
                   <text x="435" y="70" font-size="12" fill-opacity=".75">
-
                     1\. write order
-
                   </text>
 
-
-
                   <text x="435" y="190" font-size="15" font-weight="700">
-
                     Message broker
-
                   </text>
 
                   <text x="435" y="210" font-size="12" fill-opacity=".75">
-
                     2\. publish OrderPlaced
-
                   </text>
 
-
-
                   <text x="760" y="50" font-size="14" font-weight="700">
-
                     Committed ✓
-
                   </text>
 
                   <text x="760" y="70" font-size="12" fill-opacity=".75">
-
                     the order exists
-
                   </text>
 
-
-
                   <text x="760" y="190" font-size="14" font-weight="700">
-
                     Never published ✕
-
                   </text>
 
                   <text x="760" y="210" font-size="12" fill-opacity=".75">
-
                     billing and fulfillment never hear of it
-
                   </text>
-
                 </g>
-
-
 
                 <!-- Arrows -->
 
                 <g
-
                   stroke="currentColor"
-
                   stroke-opacity=".7"
-
                   stroke-width="1.8"
-
                   fill="none"
-
                   marker-end="url(#arr3)"
-
                 >
-
                   <path d="M210 105 L340 60" />
 
                   <path d="M210 145 L340 195" stroke-dasharray="6 4" />
@@ -1857,513 +1414,439 @@
                   <path d="M530 55 L620 55" />
 
                   <path d="M530 195 L620 195" stroke-dasharray="6 4" />
-
                 </g>
-
-
 
                 <!-- Crash marker on the second arrow -->
 
                 <g>
-
                   <circle
-
                     cx="275"
-
                     cy="170"
-
                     r="13"
-
                     fill="currentColor"
-
                     fill-opacity=".15"
-
                     stroke="currentColor"
-
                     stroke-width="1.5"
-
                   />
 
                   <text
-
                     x="275"
-
                     y="175"
-
                     text-anchor="middle"
-
                     font-size="14"
-
                     font-weight="700"
-
                     fill="currentColor"
-
                   >
-
                     ✕
-
                   </text>
 
                   <text
-
                     x="275"
-
                     y="205"
-
                     text-anchor="middle"
-
                     font-size="11"
-
                     fill="currentColor"
-
                     fill-opacity=".75"
-
                   >
-
                     crash / network error
-
                   </text>
-
                 </g>
-
               </svg>
 
               <figcaption class="visual-label">
-
                 The database and the broker are two systems with no shared
-
                 transaction.
-
               </figcaption>
 
               <ul>
-
                 <li>
-
                   <strong>Write, then publish:</strong> if the process dies in
-
                   between, the order is saved but the event is lost. The systems
-
                   are out of sync, and nothing reports an error.
-
                 </li>
 
                 <li>
-
                   <strong>Publish, then write:</strong> if the write fails after
-
                   the publish, other services act on an order that does not
-
                   exist.
-
                 </li>
 
                 <li>
-
                   <strong>Retrying does not fix it:</strong> the retry never
-
                   happens if the process itself is gone.
-
                 </li>
-
               </ul>
-
             </figure>
-
           </div>
-
         </div>
 
         <aside class="notes">
-
           There are two ways for boundaries to talk. Synchronous calls are
-
           simple and give an immediate answer, which is why the product page
-
           uses them for reads, but they couple the caller to the callee's
-
           availability. For notifying other boundaries about a change we use a
-
           message broker: the owner publishes an event and each interested
-
           service consumes it independently. That decoupling is the benefit, and
-
           it is also where the hard problem starts. When Orders handles a
-
           purchase it has to do two things: save the order in its own database,
-
           and publish OrderPlaced to the broker. Those are two different
-
           systems, so there is no transaction that covers both. If the service
-
           crashes between the two steps, we have an order that billing will
-
           never charge, with no error anywhere. Reversing the order only creates
-
           the opposite bug, an event for an order that was never saved. This is
-
           the dual-write problem, and the next slide shows how the transactional
-
           outbox solves it.
-
         </aside>
-
       </section>
 
+      <!-- 07 · THE FAILURE WINDOW -->
+      <section
+        class="slide"
+        id="slide-10"
+        data-title="A crash can happen at exactly the wrong moment"
+      >
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div class="eyebrow">10 · The failure window</div>
+            <h2>A crash can happen at exactly the wrong moment</h2>
+          </div>
+          <p class="slide-intro">
+            Imagine a payment provider accepts the charge, but the workflow
+            engine crashes before persisting the result.
+          </p>
+          <div class="inserted-crash-flow">
+            <article class="crash-step">
+              <span class="crash-number teal">1</span>
+              <h3>Send payment<br />request</h3>
+            </article>
+            <span class="crash-arrow">→</span>
+            <article class="crash-step">
+              <span class="crash-number green">2</span>
+              <h3>Provider charges<br />customer</h3>
+            </article>
+            <span class="crash-arrow">→</span>
+            <article class="crash-step">
+              <span class="crash-number red">!</span>
+              <h3>Engine crashes<br />before saving</h3>
+            </article>
+            <span class="crash-arrow">→</span>
+            <article class="crash-step">
+              <span class="crash-number amber">↻</span>
+              <h3>Workflow retries<br />after restart</h3>
+            </article>
+          </div>
+          <div class="inserted-warning">
+            Without protection, the retry may charge the customer twice.
+          </div>
+          <p class="inserted-bottom-note">
+            A durable engine must recover progress and make repeated attempts
+            safe.
+          </p>
+        </div>
+        <aside class="notes">
+          This is a particularly dangerous failure window. The payment provider
+          has charged the customer, but the workflow engine crashes before
+          recording the successful result. After restart, the engine may believe
+          the step is incomplete and retry it. Without a safe retry mechanism,
+          the customer could be charged twice.
+        </aside>
+      </section>
 
+      <!-- 08 · IDEMPOTENCY -->
+      <section
+        class="slide"
+        id="slide-11"
+        data-title="Same request key. One effective payment."
+      >
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div class="eyebrow">11 · Idempotency</div>
+            <h2>Same request key. One effective payment.</h2>
+          </div>
+          <p class="slide-intro">
+            A stable idempotency key lets a payment service recognise a repeated
+            request.
+          </p>
+          <div class="inserted-split inserted-idempotency">
+            <figure class="visual-card inserted-image-card">
+              <img
+                src="idempotency-comparison.jpg"
+                alt="Comparison of payment retries without and with idempotency"
+                class="inserted-photo"
+              />
+            </figure>
+            <div class="inserted-steps">
+              <article class="inserted-step info-step">
+                <h3>First attempt</h3>
+                <p>Payment succeeds, but the response is lost.</p>
+              </article>
+              <article class="inserted-step compensate-step">
+                <h3>Retry</h3>
+                <p>The engine sends the same idempotency key.</p>
+              </article>
+              <article class="inserted-step success-step">
+                <h3>Safe outcome</h3>
+                <p>Provider returns the original result.</p>
+              </article>
+            </div>
+          </div>
+          <p class="inserted-footnote">
+            Important: this depends on the downstream provider supporting and
+            correctly enforcing idempotency.
+          </p>
+        </div>
+        <aside class="notes">
+          The retry uses the same stable idempotency key as the original
+          request. If the payment provider supports and correctly enforces
+          idempotency, it recognises that this operation has already succeeded
+          and returns the original result rather than creating another charge.
+          This is an important dependency on the external provider.
+        </aside>
+      </section>
+
+      <!-- 09 · SAGA COMPENSATION -->
+      <section
+        class="slide"
+        id="slide-12"
+        data-title="If a later step fails, reverse earlier successful steps"
+      >
+        <div class="slide-inner">
+          <div class="slide-head">
+            <div class="eyebrow">12 · Saga compensation</div>
+            <h2>If a later step fails, reverse earlier successful steps</h2>
+          </div>
+          <p class="slide-intro">
+            A Saga uses compensating actions rather than assuming one global
+            transaction can undo everything.
+          </p>
+          <figure class="visual-card inserted-saga-figure">
+            <img
+              src="saga-compensation-flow.jpg"
+              alt="Saga workflow with forward transactions and compensating transactions"
+              class="inserted-photo"
+            />
+          </figure>
+          <p class="inserted-bottom-note">
+            Example: cancel delivery → reverse inventory update → reverse
+            payment → cancel order (where each compensation is possible).
+          </p>
+        </div>
+        <aside class="notes">
+          A Saga represents a business process as a sequence of local
+          transactions. If a later step fails, the system executes compensating
+          actions for earlier successful steps. These are not literal rollbacks:
+          they are new operations, and each compensation may have its own
+          failure modes or limitations.
+        </aside>
+      </section>
 
       <!-- 07 · CONCEPTS · WHAT WE WILL WORK ON -->
 
-      <section class="slide" id="slide-13" data-title="Concepts we will work on">
-
+      <section
+        class="slide"
+        id="slide-13"
+        data-title="Concepts we will work on"
+      >
         <div class="slide-inner">
-
           <div class="slide-head">
-
             <div class="eyebrow">13 · Concepts</div>
 
             <h2>The ideas we will discuss and build</h2>
-
           </div>
 
-
-
           <blockquote class="lede">
-
             <p>
-
               Once boundaries own their data and talk through messages, a new
-
               set of problems appears. These are the concepts the rest of the
-
               project is built around.
-
             </p>
 
             <footer>
-
               — Each one answers a failure from the previous slides
-
             </footer>
-
           </blockquote>
 
-
-
           <div
-
             style="
-
               display: grid;
 
               grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 
               gap: 1rem;
-
             "
-
           >
-
             <div class="visual-card">
-
               <h3>Strong consistency</h3>
 
               <p>
-
                 Every reader sees the latest committed write. Simple to reason
-
                 about, but it costs latency and availability across services.
-
               </p>
 
               <p><em>Where: money, such as the payment ledger.</em></p>
-
             </div>
 
-
-
             <div class="visual-card">
-
               <h3>Eventual consistency</h3>
 
               <p>
-
                 Copies may differ for a while, but they converge if no new
-
                 writes arrive. Availability is traded for temporary staleness.
-
               </p>
 
               <p><em>Where: stock counts, recommendations, reviews.</em></p>
-
             </div>
 
-
-
             <div class="visual-card">
-
               <h3>Idempotency</h3>
 
               <p>
-
                 Doing the same operation twice has the same effect as doing it
-
                 once. It is what makes retries safe.
-
               </p>
 
               <p><em>Where: billing deduplicates by event id.</em></p>
-
             </div>
 
-
-
             <div class="visual-card">
-
               <h3>At-least-once delivery</h3>
 
               <p>
-
                 The broker never drops a message but may deliver it more than
-
                 once. Exactly-once delivery is not achievable, so we pair this
-
                 with idempotent consumers.
-
               </p>
 
               <p><em>Where: event bus to every consumer.</em></p>
-
             </div>
 
-
-
             <div class="visual-card">
-
               <h3>Transactional outbox</h3>
 
               <p>
-
                 Save the event in the same database transaction as the data,
-
                 then publish it later. This solves the write-and-publish
-
                 problem.
-
               </p>
 
               <p><em>Where: Orders service to event bus.</em></p>
-
             </div>
 
-
-
             <div class="visual-card">
-
               <h3>Sagas &amp; compensation</h3>
 
               <p>
-
                 A business flow across services has no global transaction. If a
-
                 step fails, earlier steps are undone by compensating actions.
-
               </p>
 
               <p><em>Where: payment fails, so release reserved stock.</em></p>
-
             </div>
 
-
-
             <div class="visual-card">
-
               <h3>Ordering &amp; causality</h3>
 
               <p>
-
                 Events can arrive out of order. We decide what must be ordered
-
                 (per order id, via partition keys or versions) and tolerate the
-
                 rest.
-
               </p>
 
               <p>
-
                 <em>Where: PaymentCaptured must not precede OrderPlaced.</em>
-
               </p>
-
             </div>
 
-
-
             <div class="visual-card">
-
               <h3>Retries, DLQ &amp; reconciliation</h3>
 
               <p>
-
                 Retry with backoff, park poison messages in a dead-letter queue,
-
                 and run periodic checks that repair silent drift.
-
               </p>
 
               <p><em>Where: the safety nets behind every consumer.</em></p>
-
             </div>
-
           </div>
-
         </div>
 
         <aside class="notes">
-
           This slide is the map for the rest of the project. Start from the
-
           spectrum: strong consistency is the easy mental model, but across
-
           independent services it costs availability, which is the CAP trade-off
-
           in practice. So most of the system is eventually consistent, and only
-
           a few places, like the payment ledger, pay for strong guarantees.
-
           Eventual consistency only works if messages are not lost and
-
           duplicates are harmless. That is why we need at-least-once delivery,
-
           the transactional outbox on the producer side, and idempotent
-
           consumers on the other side. When a business process spans several
-
           services we use sagas with compensating actions instead of a
-
           distributed transaction. Ordering is the subtle one: we only guarantee
-
           it where correctness needs it, usually per aggregate. Finally,
-
           retries, dead-letter queues and reconciliation are the nets that catch
-
           what the design did not anticipate. In the project we will implement
-
           and test each of these one by one.
-
         </aside>
-
       </section>
-
     </main>
 
-
-
     <nav class="controls" aria-label="Presentation controls">
-
       <button
-
         class="control-btn"
-
         id="btn-prev"
-
         type="button"
-
         title="Previous slide (←)"
-
         aria-label="Previous slide"
-
       >
-
         ←
-
       </button>
 
       <span class="slide-counter" id="slide-counter">1 / 13</span>
 
       <button
-
         class="control-btn"
-
         id="btn-next"
-
         type="button"
-
         title="Next slide (→)"
-
         aria-label="Next slide"
-
       >
-
         →
-
       </button>
 
       <span class="control-sep" aria-hidden="true"></span>
 
       <button
-
         class="control-btn text-btn"
-
         id="btn-notes"
-
         type="button"
-
         title="Toggle speaker notes (N)"
-
       >
-
         Notes
-
       </button>
 
       <button
-
         class="control-btn text-btn"
-
         id="btn-doc"
-
         type="button"
-
         title="Toggle document view (D)"
-
       >
-
         Document
-
       </button>
 
       <button
-
         class="control-btn text-btn"
-
         id="btn-full"
-
         type="button"
-
         title="Fullscreen (F)"
-
       >
-
         Full
-
       </button>
-
     </nav>
 
-
-
     <div class="hint" id="hint">
-
       ← → navigate · N notes · D document view · F fullscreen
-
     </div>
 
-
-
     <script src="script.js"></script>
-
   </body>
-
 </html>
