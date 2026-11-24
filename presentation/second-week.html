@@ -1,0 +1,3220 @@
+  <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#03050a" />
+    <title>From Fragile Orders to Durable Workflows — Interactive Explainer</title>
+    <style>
+      /* ============================================================
+         Durable Workflow Engine — problem / solution explainer
+         Self-contained: no fonts, images, or scripts are loaded.
+         ============================================================ */
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg: #03050a;
+        --bg-2: #070b13;
+        --panel: #0a101b;
+        --panel-2: #0d1422;
+        --border: rgba(148, 163, 184, 0.18);
+        --border-strong: rgba(148, 163, 184, 0.34);
+        --text: #f2f7ff;
+        --heading: #f8fbff;
+        --muted: #a2b2c7;
+        --muted-2: #7d8fa7;
+        --teal: #2dd4bf;
+        --cyan: #67e8f9;
+        --violet: #a78bfa;
+        --amber: #fbbf24;
+        --red: #fb7185;
+        --green: #34d399;
+        --blue: #60a5fa;
+        --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+        --sans: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+        --radius: 14px;
+      }
+
+      html {
+        background: var(--bg);
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        background:
+          radial-gradient(1100px 620px at 10% -8%, rgba(45, 212, 191, 0.13), transparent 62%),
+          radial-gradient(900px 560px at 104% 6%, rgba(167, 139, 250, 0.12), transparent 62%),
+          radial-gradient(900px 700px at 50% 115%, rgba(96, 165, 250, 0.07), transparent 60%),
+          linear-gradient(165deg, var(--bg), var(--bg-2) 62%, #04070d);
+        background-attachment: fixed;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.5;
+        background-image:
+          linear-gradient(rgba(148, 163, 184, 0.028) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.028) 1px, transparent 1px);
+        background-size: 44px 44px;
+        z-index: 0;
+      }
+
+      .wrap {
+        position: relative;
+        z-index: 1;
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: var(--heading);
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      code,
+      pre {
+        font-family: var(--mono);
+        font-size: 0.9em;
+      }
+
+      /* ---------- hero ---------- */
+
+      .hero {
+        padding: clamp(56px, 9vw, 110px) 0 clamp(34px, 5vw, 60px);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--teal);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.19em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 26px;
+        height: 2px;
+        background: var(--teal);
+        box-shadow: 0 0 14px rgba(45, 212, 191, 0.7);
+      }
+
+      .hero h1 {
+        margin-top: 18px;
+        font-size: clamp(42px, 7.4vw, 86px);
+        letter-spacing: -0.045em;
+      }
+
+      .hero h1 .accent {
+        background: linear-gradient(100deg, var(--teal), var(--cyan) 52%, var(--violet));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero .lede {
+        max-width: 70ch;
+        margin-top: 20px;
+        color: var(--muted);
+        font-size: clamp(17px, 2vw, 21px);
+      }
+
+      .jump {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 32px;
+      }
+
+      .jump a {
+        padding: 9px 16px;
+        border: 1px solid var(--border-strong);
+        border-radius: 999px;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 650;
+        text-decoration: none;
+        transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      }
+
+      .jump a:hover {
+        border-color: var(--teal);
+        background: rgba(45, 212, 191, 0.08);
+        transform: translateY(-1px);
+      }
+
+      /* ---------- chapters ---------- */
+
+      .chapter {
+        padding: clamp(44px, 7vw, 88px) 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .chapter-head {
+        display: flex;
+        align-items: flex-start;
+        gap: clamp(16px, 3vw, 30px);
+      }
+
+      .chapter-no {
+        flex: none;
+        display: grid;
+        place-items: center;
+        width: clamp(48px, 6vw, 66px);
+        height: clamp(48px, 6vw, 66px);
+        border: 1px solid var(--border-strong);
+        border-radius: 16px;
+        background: rgba(148, 163, 184, 0.05);
+        color: var(--teal);
+        font-family: var(--mono);
+        font-size: clamp(16px, 2vw, 22px);
+        font-weight: 700;
+      }
+
+      .kicker {
+        color: var(--muted-2);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .chapter h2 {
+        margin-top: 8px;
+        font-size: clamp(28px, 4.4vw, 48px);
+        letter-spacing: -0.03em;
+      }
+
+      .chapter-lede {
+        max-width: 82ch;
+        margin: 22px 0 clamp(24px, 4vw, 38px);
+        color: var(--muted);
+        font-size: clamp(16px, 1.8vw, 19px);
+      }
+
+      .chapter-lede strong {
+        color: var(--text);
+      }
+
+      /* ---------- story ticket ---------- */
+
+      .story {
+        display: grid;
+        grid-template-columns: minmax(230px, 0.85fr) minmax(0, 1.6fr);
+        gap: clamp(16px, 2.4vw, 26px);
+        align-items: stretch;
+        margin-bottom: clamp(22px, 3vw, 32px);
+      }
+
+      .ticket,
+      .story-text {
+        padding: clamp(20px, 2.6vw, 30px);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+      }
+
+      .ticket-label {
+        color: var(--muted-2);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .ticket h3 {
+        margin: 10px 0 4px;
+        font-size: 22px;
+      }
+
+      .ticket .price {
+        color: var(--amber);
+        font-family: var(--mono);
+        font-size: 30px;
+        font-weight: 700;
+      }
+
+      .ticket ul {
+        margin: 18px 0 0;
+        padding: 0;
+        list-style: none;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .ticket li {
+        display: flex;
+        gap: 9px;
+        padding: 6px 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .ticket li span:first-child {
+        color: var(--teal);
+        font-family: var(--mono);
+      }
+
+      .story-text p + p {
+        margin-top: 12px;
+      }
+
+      .story-text strong {
+        color: var(--text);
+      }
+
+      .story-text em {
+        color: var(--amber);
+        font-style: normal;
+      }
+
+      /* ---------- lab shell ---------- */
+
+      .lab {
+        border: 1px solid var(--border-strong);
+        border-radius: 18px;
+        background: rgba(8, 13, 23, 0.72);
+        box-shadow: 0 26px 70px rgba(0, 0, 0, 0.38);
+        overflow: hidden;
+      }
+
+      .lab-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(148, 163, 184, 0.045);
+      }
+
+      .lab-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 750;
+        letter-spacing: -0.01em;
+      }
+
+      .lab-title::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--teal);
+        box-shadow: 0 0 12px rgba(45, 212, 191, 0.85);
+      }
+
+      .lab-title.naive::before {
+        background: var(--red);
+        box-shadow: 0 0 12px rgba(251, 113, 133, 0.8);
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .btn {
+        padding: 8px 13px;
+        border: 1px solid var(--border-strong);
+        border-radius: 9px;
+        background: rgba(148, 163, 184, 0.06);
+        color: var(--text);
+        font-size: 12.5px;
+        font-weight: 650;
+        cursor: pointer;
+        transition: background 0.18s, border-color 0.18s, transform 0.18s;
+      }
+
+      .btn:hover {
+        background: rgba(148, 163, 184, 0.14);
+        border-color: var(--teal);
+        transform: translateY(-1px);
+      }
+
+      .btn.primary {
+        border-color: rgba(45, 212, 191, 0.5);
+        background: rgba(45, 212, 191, 0.13);
+        color: #b8fff3;
+      }
+
+      .btn.danger {
+        border-color: rgba(251, 113, 133, 0.42);
+        background: rgba(251, 113, 133, 0.1);
+        color: #ffd3da;
+      }
+
+      .btn:focus-visible {
+        outline: 2px solid var(--cyan);
+        outline-offset: 2px;
+      }
+
+      .lab-body {
+        padding: clamp(18px, 2.8vw, 30px);
+      }
+
+      /* ---------- pipeline ---------- */
+
+      .pipeline {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(10px, 2vw, 22px);
+        margin-bottom: clamp(20px, 3vw, 30px);
+      }
+
+      .step {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: rgba(148, 163, 184, 0.035);
+        transition: border-color 0.3s, background 0.3s, box-shadow 0.3s, opacity 0.3s;
+      }
+
+      .step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        right: calc(-1 * clamp(10px, 2vw, 22px) / 2 - 6px);
+        top: 50%;
+        transform: translate(50%, -50%);
+        color: var(--muted-2);
+        font-size: 18px;
+        z-index: 2;
+      }
+
+      .step .dot {
+        flex: none;
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--border-strong);
+        border-radius: 50%;
+        color: var(--muted-2);
+        font-family: var(--mono);
+        font-size: 13px;
+        font-weight: 700;
+        transition: all 0.3s;
+      }
+
+      .step .meta {
+        min-width: 0;
+      }
+
+      .step .name {
+        display: block;
+        overflow: hidden;
+        color: var(--muted);
+        font-size: 13.5px;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .step .state {
+        display: block;
+        color: var(--muted-2);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .step.is-active,
+      .step.is-running {
+        border-color: rgba(45, 212, 191, 0.65);
+        background: rgba(45, 212, 191, 0.08);
+        box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.12), 0 0 26px rgba(45, 212, 191, 0.14);
+      }
+
+      .step.is-active .dot,
+      .step.is-running .dot {
+        border-color: var(--teal);
+        color: var(--teal);
+        animation: pulse 1.25s ease-in-out infinite;
+      }
+
+      .step.is-done,
+      .step.is-succeeded {
+        border-color: rgba(52, 211, 153, 0.45);
+        background: rgba(52, 211, 153, 0.07);
+      }
+
+      .step.is-done .dot,
+      .step.is-succeeded .dot {
+        border-color: var(--green);
+        background: rgba(52, 211, 153, 0.16);
+        color: var(--green);
+      }
+
+      .step.is-failed,
+      .step.is-unknown {
+        border-color: rgba(251, 113, 133, 0.55);
+        background: rgba(251, 113, 133, 0.08);
+      }
+
+      .step.is-failed .dot,
+      .step.is-unknown .dot {
+        border-color: var(--red);
+        color: var(--red);
+      }
+
+      .step.is-compensated,
+      .step.is-active_comp {
+        border-color: rgba(251, 191, 36, 0.5);
+        background: rgba(251, 191, 36, 0.07);
+      }
+
+      .step.is-compensated .dot,
+      .step.is-active_comp .dot {
+        border-color: var(--amber);
+        color: var(--amber);
+      }
+
+      .step.is-pending_comp .state {
+        color: var(--amber);
+      }
+
+      @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.35); }
+        50% { box-shadow: 0 0 0 8px rgba(45, 212, 191, 0); }
+      }
+
+      /* ---------- naive state boxes ---------- */
+
+      .state-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(12px, 2vw, 20px);
+        margin-bottom: clamp(18px, 2.6vw, 26px);
+      }
+
+      .state-box {
+        min-height: 126px;
+        padding: 16px;
+        border: 1px dashed var(--border-strong);
+        border-radius: 12px;
+        background: rgba(148, 163, 184, 0.03);
+      }
+
+      .state-box h4 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .state-box h4 .tag {
+        padding: 2px 7px;
+        border-radius: 5px;
+        background: rgba(148, 163, 184, 0.12);
+        color: var(--muted-2);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        padding: 6px 10px;
+        border: 1px solid rgba(96, 165, 250, 0.4);
+        border-radius: 8px;
+        background: rgba(96, 165, 250, 0.09);
+        color: #cfe3ff;
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+
+      .empty {
+        color: var(--muted-2);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-style: italic;
+      }
+
+      .state-box.disk {
+        border-style: solid;
+        border-color: rgba(45, 212, 191, 0.22);
+        background: rgba(45, 212, 191, 0.035);
+      }
+
+      /* ---------- ledgers ---------- */
+
+      .ledger {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        margin-bottom: clamp(16px, 2.4vw, 24px);
+      }
+
+      .stat {
+        padding: 13px 15px;
+        border: 1px solid var(--border);
+        border-radius: 11px;
+        background: var(--panel);
+      }
+
+      .stat .label {
+        display: block;
+        color: var(--muted-2);
+        font-size: 11px;
+        font-weight: 750;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .stat .value {
+        display: block;
+        margin-top: 5px;
+        color: var(--heading);
+        font-family: var(--mono);
+        font-size: clamp(19px, 2.4vw, 25px);
+        font-weight: 700;
+      }
+
+      .stat.warn .value {
+        color: var(--red);
+      }
+
+      .stat.good .value {
+        color: var(--green);
+      }
+
+      .stat.flash {
+        animation: flash 0.75s ease-out;
+      }
+
+      @keyframes flash {
+        0% { border-color: var(--cyan); background: rgba(103, 232, 249, 0.16); }
+        100% { border-color: var(--border); background: var(--panel); }
+      }
+
+      /* ---------- banner + narration ---------- */
+
+      .banner {
+        min-height: 52px;
+        padding: 12px 16px;
+        border-left: 3px solid var(--blue);
+        border-radius: 9px;
+        background: rgba(96, 165, 250, 0.07);
+        color: #d9e8ff;
+        font-size: 14px;
+      }
+
+      .banner[data-type="danger"] {
+        border-color: var(--red);
+        background: rgba(251, 113, 133, 0.09);
+        color: #ffd9df;
+      }
+
+      .banner[data-type="success"] {
+        border-color: var(--green);
+        background: rgba(52, 211, 153, 0.09);
+        color: #ccffe9;
+      }
+
+      .banner[data-type="info"] {
+        border-color: var(--violet);
+        background: rgba(167, 139, 250, 0.09);
+        color: #e6ddff;
+      }
+
+      .banner:empty {
+        display: none;
+      }
+
+      .narration {
+        margin-top: 14px;
+        padding: 13px 16px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(148, 163, 184, 0.04);
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.65;
+      }
+
+      /* ---------- failure cards ---------- */
+
+      .failure-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 14px;
+        margin-top: clamp(22px, 3vw, 30px);
+      }
+
+      .failure {
+        padding: 20px;
+        border: 1px solid rgba(251, 113, 133, 0.25);
+        border-radius: var(--radius);
+        background: rgba(251, 113, 133, 0.045);
+      }
+
+      .failure .icon {
+        color: var(--red);
+        font-family: var(--mono);
+        font-size: 22px;
+      }
+
+      .failure h3 {
+        margin: 10px 0 8px;
+        font-size: 17px;
+      }
+
+      .failure p {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      /* ---------- engine lab grid ---------- */
+
+      .engine-grid {
+        display: grid;
+        grid-template-columns: minmax(250px, 0.85fr) minmax(0, 1.4fr);
+        gap: clamp(12px, 2vw, 20px);
+        margin-bottom: clamp(18px, 2.6vw, 24px);
+      }
+
+      .workers {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .worker {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 11px;
+        background: var(--panel);
+        transition: border-color 0.3s, background 0.3s;
+      }
+
+      .worker .who {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .worker .task {
+        color: var(--muted-2);
+        font-family: var(--mono);
+        font-size: 11.5px;
+      }
+
+      .worker.working {
+        border-color: rgba(45, 212, 191, 0.55);
+        background: rgba(45, 212, 191, 0.08);
+      }
+
+      .worker.working .task {
+        color: var(--teal);
+      }
+
+      .worker.crashed {
+        border-color: rgba(251, 113, 133, 0.6);
+        background: rgba(251, 113, 133, 0.1);
+      }
+
+      .worker.crashed .task {
+        color: var(--red);
+      }
+
+      .worker.offline {
+        opacity: 0.5;
+      }
+
+      .inspector {
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: 11px;
+        background: rgba(148, 163, 184, 0.035);
+      }
+
+      .inspector h4 {
+        margin-bottom: 10px;
+        color: var(--muted-2);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .inspector dl {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 6px 10px;
+        margin: 0;
+        font-size: 12px;
+      }
+
+      .inspector dt {
+        color: var(--muted-2);
+      }
+
+      .inspector dd {
+        margin: 0;
+        overflow: hidden;
+        color: var(--cyan);
+        font-family: var(--mono);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* ---------- db panel ---------- */
+
+      .db-panel {
+        display: flex;
+        flex-direction: column;
+        min-height: 280px;
+        border: 1px solid rgba(45, 212, 191, 0.22);
+        border-radius: 12px;
+        background: #050a12;
+        overflow: hidden;
+      }
+
+      .db-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(45, 212, 191, 0.06);
+        color: var(--teal);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .db-head span {
+        color: var(--muted-2);
+        font-weight: 500;
+      }
+
+      .db-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 8px 10px 0;
+      }
+
+      .db-tab {
+        padding: 4px 9px;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--muted-2);
+        font-family: var(--mono);
+        font-size: 10.5px;
+        cursor: pointer;
+      }
+
+      .db-tab.active {
+        border-color: rgba(45, 212, 191, 0.35);
+        background: rgba(45, 212, 191, 0.1);
+        color: var(--teal);
+      }
+
+      .db-rows {
+        flex: 1;
+        max-height: 290px;
+        overflow: auto;
+        padding: 10px 14px 14px;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        line-height: 1.9;
+      }
+
+      .db-row {
+        display: flex;
+        gap: 9px;
+        color: #cbd8e8;
+        animation: slideIn 0.3s ease-out;
+      }
+
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateX(-6px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+
+      .db-row .tag {
+        flex: none;
+        min-width: 58px;
+        color: var(--violet);
+      }
+
+      .db-row[data-tab="steps"] .tag { color: var(--cyan); }
+      .db-row[data-tab="attempts"] .tag { color: var(--amber); }
+      .db-row[data-tab="events"] .tag { color: var(--green); }
+
+      /* ---------- log ---------- */
+
+      .log {
+        max-height: 168px;
+        overflow: auto;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 11px;
+        background: #04080f;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        line-height: 1.9;
+      }
+
+      .log-line {
+        display: flex;
+        gap: 10px;
+        color: var(--muted);
+        animation: slideIn 0.25s ease-out;
+      }
+
+      .log-line .lvl {
+        flex: none;
+        width: 52px;
+        color: var(--blue);
+      }
+
+      .log-line[data-level="ok"] .lvl { color: var(--green); }
+      .log-line[data-level="warn"] .lvl { color: var(--amber); }
+      .log-line[data-level="error"] .lvl { color: var(--red); }
+
+      /* ---------- insight ---------- */
+
+      .insight {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+        margin-top: clamp(22px, 3vw, 30px);
+        padding: 22px 24px;
+        border: 1px solid rgba(167, 139, 250, 0.35);
+        border-radius: var(--radius);
+        background: rgba(167, 139, 250, 0.07);
+      }
+
+      .insight .mark {
+        color: var(--violet);
+        font-family: var(--mono);
+        font-size: 30px;
+      }
+
+      .insight h3 {
+        font-size: 18px;
+      }
+
+      .insight p {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .insight strong {
+        color: var(--text);
+      }
+
+      /* ---------- concept cards ---------- */
+
+      .concept-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+      }
+
+      .concept {
+        padding: 22px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+        transition: border-color 0.2s, transform 0.2s;
+      }
+
+      .concept:hover {
+        border-color: var(--border-strong);
+        transform: translateY(-2px);
+      }
+
+      .concept .num {
+        color: var(--teal);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+
+      .concept h3 {
+        margin: 9px 0 10px;
+        font-size: 20px;
+      }
+
+      .concept p {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .concept pre {
+        margin: 15px 0 0;
+        padding: 12px 14px;
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        background: #050a12;
+        color: #d5e2f0;
+        font-size: 11.5px;
+        line-height: 1.75;
+      }
+
+      .concept pre .k { color: var(--violet); }
+      .concept pre .s { color: #86efac; }
+      .concept pre .c { color: var(--muted-2); font-style: italic; }
+      .concept pre .n { color: var(--cyan); }
+
+      /* ---------- comparison ---------- */
+
+      .compare-wrap {
+        margin-top: clamp(24px, 4vw, 40px);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius);
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        min-width: 680px;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      th,
+      td {
+        padding: 14px 16px;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid var(--border);
+      }
+
+      thead th {
+        background: rgba(148, 163, 184, 0.06);
+        color: var(--muted);
+        font-size: 11px;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      tbody th {
+        width: 22%;
+        color: var(--heading);
+        font-size: 13px;
+      }
+
+      td.bad { color: #ffc4cd; }
+      td.good { color: #bff6dd; }
+
+      tbody tr:last-child th,
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      /* ---------- footer ---------- */
+
+      footer {
+        padding: 40px 0 60px;
+        border-top: 1px solid var(--border);
+        color: var(--muted-2);
+        font-size: 13px;
+      }
+
+      footer code {
+        color: var(--muted);
+      }
+
+      /* ---------- incremental code walkthrough ---------- */
+
+      .walk-shell {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.58fr) minmax(0, 1.42fr);
+        gap: clamp(14px, 2.2vw, 24px);
+        align-items: start;
+      }
+
+      .walk-rail {
+        position: sticky;
+        top: 16px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--panel);
+        overflow: hidden;
+      }
+
+      .walk-rail-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 13px 15px;
+        border-bottom: 1px solid var(--border);
+        color: var(--muted-2);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .walk-rail-head span {
+        color: var(--teal);
+        font-family: var(--mono);
+        letter-spacing: 0;
+      }
+
+      .walk-rail ol {
+        max-height: 660px;
+        margin: 0;
+        padding: 8px;
+        overflow: auto;
+        list-style: none;
+      }
+
+      .walk-step-btn {
+        display: flex;
+        gap: 11px;
+        width: 100%;
+        padding: 10px 11px;
+        border: 1px solid transparent;
+        border-radius: 9px;
+        background: transparent;
+        color: var(--muted);
+        text-align: left;
+        cursor: pointer;
+        transition: background 0.18s, border-color 0.18s, color 0.18s;
+      }
+
+      .walk-step-btn:hover {
+        background: rgba(148, 163, 184, 0.07);
+        color: var(--text);
+      }
+
+      .walk-step-btn.active {
+        border-color: rgba(45, 212, 191, 0.42);
+        background: rgba(45, 212, 191, 0.1);
+        color: var(--text);
+      }
+
+      .walk-step-btn .n {
+        flex: none;
+        display: grid;
+        place-items: center;
+        width: 27px;
+        height: 27px;
+        border: 1px solid var(--border-strong);
+        border-radius: 8px;
+        color: var(--muted-2);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .walk-step-btn.active .n {
+        border-color: var(--teal);
+        background: rgba(45, 212, 191, 0.14);
+        color: var(--teal);
+      }
+
+      .walk-step-btn.done .n {
+        border-color: rgba(52, 211, 153, 0.45);
+        color: var(--green);
+      }
+
+      .walk-step-btn .t {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      .walk-step-btn .f {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted-2);
+        font-family: var(--mono);
+        font-size: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .walk-main {
+        min-width: 0;
+      }
+
+      .walk-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .walk-eyebrow {
+        color: var(--violet);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .walk-top h3 {
+        margin-top: 6px;
+        font-size: clamp(22px, 3vw, 32px);
+      }
+
+      .walk-badge {
+        flex: none;
+        padding: 5px 10px;
+        border: 1px solid rgba(167, 139, 250, 0.42);
+        border-radius: 999px;
+        background: rgba(167, 139, 250, 0.1);
+        color: #e6ddff;
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+
+      .walk-badge[data-kind="before"] {
+        border-color: rgba(251, 113, 133, 0.45);
+        background: rgba(251, 113, 133, 0.1);
+        color: #ffd3da;
+      }
+
+      .walk-badge[data-kind="final"] {
+        border-color: rgba(52, 211, 153, 0.45);
+        background: rgba(52, 211, 153, 0.1);
+        color: #ccffe9;
+      }
+
+      .walk-summary {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .walk-change {
+        margin-top: 16px;
+        padding: 14px 16px;
+        border-left: 3px solid var(--teal);
+        border-radius: 9px;
+        background: rgba(45, 212, 191, 0.07);
+      }
+
+      .walk-change-label {
+        color: var(--teal);
+        font-size: 10.5px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .walk-change p {
+        margin-top: 5px;
+        color: #d5e2f0;
+        font-size: 14px;
+      }
+
+      .walk-files {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 16px;
+      }
+
+      .walk-file-chip {
+        padding: 5px 9px;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        background: rgba(148, 163, 184, 0.05);
+        color: var(--muted-2);
+        font-family: var(--mono);
+        font-size: 10.5px;
+      }
+
+      .walk-file-chip.current {
+        border-color: rgba(45, 212, 191, 0.45);
+        background: rgba(45, 212, 191, 0.1);
+        color: var(--teal);
+      }
+
+      .walk-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 18px 0 14px;
+      }
+
+      .code-window {
+        border: 1px solid var(--border-strong);
+        border-radius: 13px;
+        background: #050a12;
+        overflow: hidden;
+      }
+
+      .code-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(148, 163, 184, 0.05);
+      }
+
+      .code-dots {
+        display: flex;
+        gap: 5px;
+      }
+
+      .code-dots i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--red);
+      }
+
+      .code-dots i:nth-child(2) { background: var(--amber); }
+      .code-dots i:nth-child(3) { background: var(--green); }
+
+      .code-file {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11.5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .code-lang {
+        color: var(--violet);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      .code-scroll {
+        max-height: 470px;
+        overflow: auto;
+        padding: 14px 0;
+      }
+
+      .code-group + .code-group {
+        margin-top: 18px;
+        padding-top: 12px;
+        border-top: 1px dashed var(--border);
+      }
+
+      .code-group-head {
+        padding: 0 16px 8px;
+        color: var(--violet);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .code-line {
+        display: flex;
+        min-width: max-content;
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.75;
+      }
+
+      .code-line .ln {
+        flex: none;
+        width: 48px;
+        padding-right: 14px;
+        color: #42536a;
+        text-align: right;
+        user-select: none;
+      }
+
+      .code-line .src {
+        padding-right: 24px;
+        color: #d5e2f0;
+        white-space: pre;
+      }
+
+      .code-line.added {
+        background: rgba(45, 212, 191, 0.07);
+      }
+
+      .code-line.added .ln {
+        color: var(--teal);
+      }
+
+      .code-block .k { color: var(--violet); }
+      .code-block .s { color: #86efac; }
+      .code-block .c { color: var(--muted-2); font-style: italic; }
+      .code-block .n { color: var(--cyan); }
+
+      .walk-foot {
+        margin-top: 12px;
+        color: var(--muted-2);
+        font-size: 12.5px;
+        font-style: italic;
+      }
+
+      /* ---------- responsive / a11y ---------- */
+
+      @media (max-width: 900px) {
+        .wrap { width: min(100% - 28px, 1180px); }
+        .story,
+        .engine-grid,
+        .state-row { grid-template-columns: 1fr; }
+        .pipeline {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        .step:not(:last-child)::after {
+          content: "↓";
+          right: 50%;
+          top: auto;
+          bottom: -16px;
+          transform: translateX(50%);
+        }
+        .lab-bar { align-items: flex-start; }
+        .insight { grid-template-columns: 1fr; }
+        .db-rows { max-height: 220px; }
+        .walk-shell { grid-template-columns: 1fr; }
+        .walk-rail { position: static; }
+        .walk-rail ol { max-height: 230px; }
+        .code-scroll { max-height: 360px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      @media print {
+        body {
+          background: var(--bg) !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .lab,
+        .concept,
+        .failure,
+        .insight { break-inside: avoid; }
+        .controls, .jump { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <div class="eyebrow">Durable Workflow Engine · Interactive Explainer</div>
+        <h1>One order.<br /><span class="accent">Two very different outcomes.</span></h1>
+        <p class="lede">
+          Alice buys a $49.50 pair of headphones. In a naive service, a crash after the payment
+          means she is charged twice and nobody can say what happened. In our engine, the same
+          crash becomes a boring, automatic recovery. Press the buttons below and watch both stories.
+        </p>
+        <nav class="jump" aria-label="Jump to section">
+          <a href="#problem">01 · The problem</a>
+          <a href="#solution">02 · The solution</a>
+          <a href="#walkthrough">03 · Code walkthrough</a>
+          <a href="#concepts">04 · Concepts in depth</a>
+        </nav>
+      </header>
+
+      <main>
+        <!-- ============================================================
+             PROBLEM
+             ============================================================ -->
+        <section class="chapter" id="problem">
+          <div class="chapter-head">
+            <div class="chapter-no">01</div>
+            <div>
+              <div class="kicker">What was the problem?</div>
+              <h2>A service that forgets what it already did</h2>
+            </div>
+          </div>
+
+          <p class="chapter-lede">
+            The order is three dependent steps — <strong>reserve inventory → charge payment →
+            arrange shipping</strong>. Nothing about that is hard when everything works. The trouble
+            starts when the process dies in the middle, because the steps have <em>real external
+            side effects</em> that cannot be undone by restarting the program.
+          </p>
+
+          <div class="story">
+            <div class="ticket">
+              <div class="ticket-label">Order #1042</div>
+              <h3>Noise-cancelling headphones</h3>
+              <div class="price">$49.50</div>
+              <ul>
+                <li><span>1</span> Reserve one unit in the warehouse</li>
+                <li><span>2</span> Charge the customer's card</li>
+                <li><span>3</span> Create a shipment with tracking</li>
+              </ul>
+            </div>
+            <div class="story-text">
+              <p>
+                A simple order service keeps the order in a local variable: <code>reservationId</code>,
+                <code>paymentId</code>, <code>shipmentId</code>. That works — until the machine running
+                it loses power between step 2 and step 3.
+              </p>
+              <p>
+                At that moment the state in <strong>RAM is gone</strong>, but the charge at the payment
+                provider and the reservation in the warehouse <strong>are still real</strong>. Now the
+                customer retries the checkout. The service has no memory of the first attempt, so it
+                reserves stock again and <em>charges the card a second time</em>.
+              </p>
+              <p>
+                This is not a rare edge case. Any durable system must assume <strong>at-least-once
+                execution</strong>: work may be attempted more than once. Without a stable identity for
+                an operation, at-least-once becomes "charged twice".
+              </p>
+            </div>
+          </div>
+
+          <div class="lab" id="naive-lab">
+            <div class="lab-bar">
+              <div class="lab-title naive">The naive order service</div>
+              <div class="controls">
+                <button class="btn" data-naive="happy">Happy path</button>
+                <button class="btn danger" data-naive="crash">Crash after payment</button>
+                <button class="btn danger" data-naive="retry">Then blind retry</button>
+                <button class="btn" data-naive="reset">Reset</button>
+              </div>
+            </div>
+            <div class="lab-body">
+              <div class="pipeline" id="naive-pipeline">
+                <div class="step" data-step="reserve">
+                  <span class="dot">1</span>
+                  <span class="meta"><span class="name">Reserve inventory</span><span class="state">pending</span></span>
+                </div>
+                <div class="step" data-step="pay">
+                  <span class="dot">2</span>
+                  <span class="meta"><span class="name">Charge payment</span><span class="state">pending</span></span>
+                </div>
+                <div class="step" data-step="ship">
+                  <span class="dot">3</span>
+                  <span class="meta"><span class="name">Arrange shipping</span><span class="state">pending</span></span>
+                </div>
+              </div>
+
+              <div class="state-row">
+                <div class="state-box">
+                  <h4>Process memory <span class="tag">RAM</span></h4>
+                  <div class="chips" id="naive-ram"></div>
+                </div>
+                <div class="state-box disk">
+                  <h4>Database <span class="tag">DISK</span></h4>
+                  <div class="chips" id="naive-disk"></div>
+                </div>
+              </div>
+
+              <div class="ledger" id="naive-ledger">
+                <div class="stat" data-stat="inventory"><span class="label">Reservations</span><span class="value">0</span></div>
+                <div class="stat" data-stat="charges"><span class="label">Charges captured</span><span class="value">0</span></div>
+                <div class="stat" data-stat="total"><span class="label">Total charged</span><span class="value">$0.00</span></div>
+                <div class="stat" data-stat="shipments"><span class="label">Shipments</span><span class="value">0</span></div>
+              </div>
+
+              <div class="banner" id="naive-banner" aria-live="polite"></div>
+              <p class="narration" id="naive-narration" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <div class="failure-grid">
+            <article class="failure">
+              <div class="icon">✕</div>
+              <h3>State disappears</h3>
+              <p>The only record of progress lived in RAM. After a crash, the service cannot answer "what was done?"</p>
+            </article>
+            <article class="failure">
+              <div class="icon">↻</div>
+              <h3>Side effects duplicate</h3>
+              <p>A retry is indistinguishable from a new request. The payment gateway sees two different charges.</p>
+            </article>
+            <article class="failure">
+              <div class="icon">⏸</div>
+              <h3>Work is stranded</h3>
+              <p>Inventory stays reserved and no shipment is created. Nobody owns the half-finished order.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SOLUTION
+             ============================================================ -->
+        <section class="chapter" id="solution">
+          <div class="chapter-head">
+            <div class="chapter-no">02</div>
+            <div>
+              <div class="kicker">What we suggest as a solution?</div>
+              <h2>Make the database the source of truth</h2>
+            </div>
+          </div>
+
+          <p class="chapter-lede">
+            We replace the fragile in-memory flow with a <strong>durable workflow engine</strong>. It
+            writes every transition to SQLite before it acts, gives each step a stable idempotency key,
+            leases work to workers, and — when a step fails permanently — undoes the earlier steps in
+            reverse order. Run the same three scenarios and compare the ledgers.
+          </p>
+
+          <div class="lab" id="engine-lab">
+            <div class="lab-bar">
+              <div class="lab-title">The engine lab</div>
+              <div class="controls">
+                <button class="btn primary" data-engine="happy">Happy path</button>
+                <button class="btn primary" data-engine="crash">Crash + recovery</button>
+                <button class="btn primary" data-engine="saga">Permanent failure → saga</button>
+                <button class="btn" id="engine-step">Step</button>
+                <button class="btn" id="engine-play">Play</button>
+                <button class="btn" data-engine="reset">Reset</button>
+              </div>
+            </div>
+            <div class="lab-body">
+              <div class="pipeline" id="engine-pipeline">
+                <div class="step" data-step="reserve">
+                  <span class="dot">1</span>
+                  <span class="meta"><span class="name">Reserve inventory</span><span class="state">pending</span></span>
+                </div>
+                <div class="step" data-step="pay">
+                  <span class="dot">2</span>
+                  <span class="meta"><span class="name">Charge payment</span><span class="state">pending</span></span>
+                </div>
+                <div class="step" data-step="ship">
+                  <span class="dot">3</span>
+                  <span class="meta"><span class="name">Arrange shipping</span><span class="state">pending</span></span>
+                </div>
+              </div>
+
+              <div class="engine-grid">
+                <div class="workers">
+                  <div class="worker" id="worker-a"><span class="who">worker-A</span><span class="task">idle</span></div>
+                  <div class="worker" id="worker-b"><span class="who">worker-B</span><span class="task">idle</span></div>
+                  <div class="inspector">
+                    <h4>Current claim · what the worker sees</h4>
+                    <dl>
+                      <dt>step</dt><dd id="insp-step">—</dd>
+                      <dt>key</dt><dd id="insp-key">—</dd>
+                      <dt>lease</dt><dd id="insp-lease">—</dd>
+                      <dt>attempt</dt><dd id="insp-attempt">—</dd>
+                    </dl>
+                  </div>
+                </div>
+
+                <div class="db-panel">
+                  <div class="db-head">
+                    <span>SQLite · durable state</span>
+                    <span id="db-count">0 rows</span>
+                  </div>
+                  <div class="db-tabs" id="db-tabs">
+                    <button class="db-tab active" data-filter="all">all</button>
+                    <button class="db-tab" data-filter="runs">runs</button>
+                    <button class="db-tab" data-filter="steps">steps</button>
+                    <button class="db-tab" data-filter="attempts">attempts</button>
+                    <button class="db-tab" data-filter="events">events</button>
+                  </div>
+                  <div class="db-rows" id="db-rows"><span class="empty">No rows yet — create a run to fill the ledger.</span></div>
+                </div>
+              </div>
+
+              <div class="ledger" id="engine-ledger">
+                <div class="stat" data-stat="inventory"><span class="label">Inventory held</span><span class="value">0</span></div>
+                <div class="stat" data-stat="charges"><span class="label">Charges captured</span><span class="value">0</span></div>
+                <div class="stat" data-stat="net"><span class="label">Net charged</span><span class="value">$0.00</span></div>
+                <div class="stat" data-stat="shipments"><span class="label">Shipments</span><span class="value">0</span></div>
+                <div class="stat" data-stat="run"><span class="label">Run status</span><span class="value">—</span></div>
+              </div>
+
+              <div class="banner" id="engine-banner" aria-live="polite"></div>
+              <p class="narration" id="engine-narration" aria-live="polite"></p>
+              <div class="log" id="engine-log" aria-label="Engine log"></div>
+            </div>
+          </div>
+
+          <div class="insight">
+            <div class="mark">→</div>
+            <div>
+              <h3>The one-sentence difference</h3>
+              <p>
+                The naive service asks <strong>"what did I just do?"</strong> and answers from memory.
+                The engine asks <strong>"what is committed?"</strong> and answers from disk. Once state is
+                durable and every external call carries a stable key, retries and crashes become ordinary
+                control flow instead of data loss.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             CODE WALKTHROUGH
+             ============================================================ -->
+        <section class="chapter" id="walkthrough">
+          <div class="chapter-head">
+            <div class="chapter-no">03</div>
+            <div>
+              <div class="kicker">Follow the build</div>
+              <h2>From one function to the current engine</h2>
+            </div>
+          </div>
+
+          <p class="chapter-lede">
+            This is the incremental walkthrough. Each step adds one real piece of the implementation —
+            starting with the fragile handler, then growing the code through durable state, steps, keys,
+            leases, retries, and saga, until the final panel is the bootstrap that runs today. Use
+            <strong>Next</strong> to advance, or click any step in the rail to jump back.
+          </p>
+
+          <div class="walk-shell">
+            <aside class="walk-rail">
+              <div class="walk-rail-head">
+                <span>Build steps</span>
+                <span id="walk-progress">01 / 10</span>
+              </div>
+              <ol id="walk-steps"></ol>
+            </aside>
+
+            <div class="walk-main">
+              <div class="walk-top">
+                <div>
+                  <div class="walk-eyebrow" id="walk-eyebrow">Step 1 of 10</div>
+                  <h3 id="walk-title">The fragile handler</h3>
+                </div>
+                <span class="walk-badge" id="walk-badge">BEFORE</span>
+              </div>
+
+              <p class="walk-summary" id="walk-summary"></p>
+
+              <div class="walk-change">
+                <span class="walk-change-label">What this step adds</span>
+                <p id="walk-change-text"></p>
+              </div>
+
+              <div class="walk-files" id="walk-files"></div>
+
+              <div class="walk-controls">
+                <button class="btn" id="walk-prev" type="button">← Previous</button>
+                <button class="btn primary" id="walk-next" type="button">Next →</button>
+                <button class="btn" id="walk-play" type="button">Play</button>
+                <button class="btn" id="walk-all" type="button" aria-pressed="false">Accumulated code</button>
+                <button class="btn" id="walk-reset" type="button">Reset</button>
+              </div>
+
+              <div class="code-window">
+                <div class="code-head">
+                  <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="code-file" id="walk-file">before.ts</span>
+                  <span class="code-lang" id="walk-lang">TS</span>
+                </div>
+                <div class="code-scroll" id="walk-code"></div>
+              </div>
+
+              <p class="walk-foot" id="walk-foot"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             CONCEPTS
+             ============================================================ -->
+        <section class="chapter" id="concepts">
+          <div class="chapter-head">
+            <div class="chapter-no">04</div>
+            <div>
+              <div class="kicker">Under the hood</div>
+              <h2>Seven mechanisms, one guarantee</h2>
+            </div>
+          </div>
+
+          <p class="chapter-lede">
+            The animation above is driven by the same rules as the code in <code>src/engine/</code>.
+            Here is what each mechanism actually does, with a short excerpt of the real implementation.
+          </p>
+
+          <div class="concept-grid">
+            <article class="concept">
+              <div class="num">01 / DURABILITY</div>
+              <h3>Write first, act second</h3>
+              <p>
+                SQLite in WAL mode holds the run, steps, attempts, and an append-only event log. A worker
+                inserts the claim, the attempt row, and the events in <strong>one transaction before the
+                handler runs</strong>. If the process dies, the next worker reads the same truth.
+              </p>
+              <pre><span class="k">PRAGMA</span> journal_mode = WAL;
+<span class="k">PRAGMA</span> synchronous = NORMAL;
+<span class="c">-- claim + attempt + event: one transaction</span></pre>
+            </article>
+
+            <article class="concept">
+              <div class="num">02 / STEPS</div>
+              <h3>The unit of work</h3>
+              <p>
+                A step is a row with status, attempts, lease, retry policy, idempotency key, and output.
+                <code>claimNext()</code> only returns a pending step whose previous step succeeded — or a
+                compensation whose later compensations are already done. Ordering lives in SQL, not in
+                a call stack.
+              </p>
+              <pre><span class="k">WHERE</span> s.status = <span class="s">'pending'</span>
+  <span class="k">AND</span> s.next_attempt_at &lt;= now
+  <span class="k">AND</span> previous.status = <span class="s">'succeeded'</span></pre>
+            </article>
+
+            <article class="concept">
+              <div class="num">03 / IDEMPOTENCY</div>
+              <h3>Same key, same effect</h3>
+              <p>
+                Every step gets a stable key when the run is created. Downstream services store effects
+                by that key, so replaying a step returns the <strong>original</strong> charge or
+                reservation instead of creating a new one. Compensation gets its own suffixed key.
+              </p>
+              <pre>execute:  <span class="n">&lt;runId&gt;:&lt;index&gt;:&lt;stepName&gt;</span>
+compensate: <span class="n">&lt;runId&gt;:&lt;index&gt;:&lt;stepName&gt;:compensate</span></pre>
+            </article>
+
+            <article class="concept">
+              <div class="num">04 / LEASES</div>
+              <h3>No orphaned steps</h3>
+              <p>
+                A claim sets <code>lease_owner</code> and <code>lease_expires_at</code>. Other workers
+                ignore the step until the lease expires. On expiry, recovery marks the interrupted
+                attempt <code>lease_expired</code> and puts the step back to <code>pending</code> — any
+                worker may then pick it up.
+              </p>
+              <pre>recoverExpiredLeases(now)
+  → attempt.status = <span class="s">'lease_expired'</span>
+  → step.status = <span class="s">'pending'</span></pre>
+            </article>
+
+            <article class="concept">
+              <div class="num">05 / FENCING</div>
+              <h3>Stale results cannot corrupt state</h3>
+              <p>
+                A worker that lost its lease may still finish its handler. Its completion is a
+                <strong>conditional update</strong>: if owner or attempt number changed, zero rows are
+                updated and the result is discarded. Only the current lease holder may write success.
+              </p>
+              <pre><span class="k">UPDATE</span> steps <span class="k">SET</span> status = <span class="s">'succeeded'</span>, ...
+<span class="k">WHERE</span> id = ? <span class="k">AND</span> status = <span class="s">'running'</span>
+  <span class="k">AND</span> lease_owner = ? <span class="k">AND</span> attempts = ?;</pre>
+            </article>
+
+            <article class="concept">
+              <div class="num">06 / SAGA</div>
+              <h3>Undo in reverse order</h3>
+              <p>
+                A permanent failure marks earlier successful steps
+                <code>pending_compensation</code>. Compensation claims the highest step index first,
+                so a failed shipping step leads to <strong>refund → release</strong>, never the other way
+                around. A failed compensation leaves a <code>failed</code> run in the audit log.
+              </p>
+              <pre>reserve ✓ → pay ✓ → ship ✗
+compensate: <span class="n">[pay, reserve]</span>  <span class="c">// reverse</span></pre>
+            </article>
+
+            <article class="concept">
+              <div class="num">07 / RETRIES</div>
+              <h3>Bounded, backed off, visible</h3>
+              <p>
+                <code>RetryableError</code> and timeouts schedule another attempt with exponential
+                backoff; <code>PermanentError</code> skips straight to compensation. The policy is
+                resolved when the run is created and stored with the step, so a definition change cannot
+                silently alter an in-flight run.
+              </p>
+              <pre>{ maxAttempts: 4, initialDelayMs: 100,
+  maxDelayMs: 2000, backoffFactor: 2 }
+<span class="c">// 100ms → 200ms → 400ms → stop</span></pre>
+            </article>
+          </div>
+
+          <div class="compare-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Concern</th>
+                  <th>Naive service</th>
+                  <th>Durable engine</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>After a crash</th>
+                  <td class="bad">State is lost; nobody knows what completed.</td>
+                  <td class="good">Steps and attempts are on disk; a new worker resumes.</td>
+                </tr>
+                <tr>
+                  <th>Retrying a step</th>
+                  <td class="bad">Creates a second charge and a second reservation.</td>
+                  <td class="good">Stable key deduplicates at the payment provider.</td>
+                </tr>
+                <tr>
+                  <th>Concurrent workers</th>
+                  <td class="bad">Both can execute the same step.</td>
+                  <td class="good">Atomic claims + leases; stale results are fenced out.</td>
+                </tr>
+                <tr>
+                  <th>Permanent failure</th>
+                  <td class="bad">Half-finished order with a stranded charge.</td>
+                  <td class="good">Saga refunds and releases in reverse order.</td>
+                </tr>
+                <tr>
+                  <th>Debugging</th>
+                  <td class="bad">Logs only, no reliable history.</td>
+                  <td class="good">Append-only events and a row per attempt.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        Visualises the design implemented in <code>src/engine/engine.ts</code>,
+        <code>src/engine/store.ts</code>, <code>src/engine/workflow-service.ts</code>, and
+        <code>src/workflows/order/workflow.ts</code>. Run numbers are illustrative; the rules are real.
+      </footer>
+    </div>
+
+    <script>
+      (() => {
+        "use strict";
+
+        const AMOUNT = 49.5;
+        const RUN = "run_8f3c1d";
+        const PAY_KEY = RUN + ":1:process-payment";
+
+        const STEP_LABELS = {
+          reserve: ["pending", "active", "done", "unknown", "compensated"],
+          pay: ["pending", "active", "done", "unknown", "failed", "active_comp", "pending_comp", "compensated"],
+          ship: ["pending", "active", "done", "failed"],
+        };
+
+        const STATE_TEXT = {
+          pending: "pending",
+          active: "running…",
+          running: "running…",
+          done: "succeeded",
+          succeeded: "succeeded",
+          unknown: "outcome unknown",
+          failed: "failed",
+          pending_comp: "pending compensation",
+          active_comp: "compensating…",
+          compensated: "compensated",
+        };
+
+        const STATE_MARK = {
+          pending: "·",
+          active: "◌",
+          running: "◌",
+          done: "✓",
+          succeeded: "✓",
+          unknown: "?",
+          failed: "✕",
+          pending_comp: "↶",
+          active_comp: "↶",
+          compensated: "↶",
+        };
+
+        /* ----------------------------------------------------------
+           Shared runner: every scenario is a list of small events.
+           Each event only describes the delta it applies.
+           ---------------------------------------------------------- */
+
+        function makeRunner(name, initial, apply, render) {
+          return {
+            state: initial(),
+            initial,
+            apply,
+            render,
+            events: [],
+            index: 0,
+            timer: null,
+            name,
+          };
+        }
+
+        function load(runner, events, seed) {
+          stop(runner);
+          runner.state = runner.initial();
+          runner.events = events || [];
+          runner.index = 0;
+          if (seed) seed(runner);
+          runner.render(runner.state);
+        }
+
+        function step(runner) {
+          if (runner.index >= runner.events.length) return false;
+          runner.apply(runner.state, runner.events[runner.index]);
+          runner.index += 1;
+          runner.render(runner.state);
+          return runner.index < runner.events.length;
+        }
+
+        function play(runner, delay) {
+          stop(runner);
+          if (runner.index >= runner.events.length) return;
+          runner.timer = window.setInterval(() => {
+            if (!step(runner)) {
+              stop(runner);
+              if (runner.name === "engine") {
+                const btn = document.getElementById("engine-play");
+                if (btn) btn.textContent = "Play";
+              }
+            }
+          }, delay);
+        }
+
+        function stop(runner) {
+          if (runner.timer !== null) {
+            window.clearInterval(runner.timer);
+            runner.timer = null;
+          }
+        }
+
+        /* ----------------------------------------------------------
+           NAIVE SERVICE
+           ---------------------------------------------------------- */
+
+        function initialNaive() {
+          return {
+            steps: { reserve: "pending", pay: "pending", ship: "pending" },
+            effects: { inventory: 0, charges: 0, shipments: 0 },
+            ram: [],
+            banner: null,
+            narration: "Choose a scenario above to see Alice's order flow through a normal service.",
+          };
+        }
+
+        function applyNaive(s, ev) {
+          if (ev.steps) Object.assign(s.steps, ev.steps);
+          if (ev.effects) Object.assign(s.effects, ev.effects);
+          if (ev.ram) s.ram = ev.ram.slice();
+          if (ev.banner !== undefined) s.banner = ev.banner;
+          if (ev.narration) s.narration = ev.narration;
+        }
+
+        const $naivePipeline = document.getElementById("naive-pipeline");
+        const $naiveRam = document.getElementById("naive-ram");
+        const $naiveLedger = document.getElementById("naive-ledger");
+        const $naiveBanner = document.getElementById("naive-banner");
+        const $naiveNarration = document.getElementById("naive-narration");
+
+        function renderNaive(s) {
+          for (const node of $naivePipeline.querySelectorAll(".step")) {
+            const status = s.steps[node.dataset.step] || "pending";
+            node.className = "step is-" + status;
+            node.querySelector(".state").textContent = STATE_TEXT[status] || status;
+            node.querySelector(".dot").textContent = STATE_MARK[status] || "·";
+          }
+
+          $naiveRam.textContent = "";
+          if (s.ram.length === 0) {
+            const empty = document.createElement("span");
+            empty.className = "empty";
+            empty.textContent = "empty — nothing survived the process";
+            $naiveRam.appendChild(empty);
+          } else {
+            for (const item of s.ram) {
+              const chip = document.createElement("span");
+              chip.className = "chip";
+              chip.textContent = item;
+              $naiveRam.appendChild(chip);
+            }
+          }
+
+          const values = {
+            inventory: String(s.effects.inventory),
+            charges: String(s.effects.charges),
+            total: "$" + (s.effects.charges * AMOUNT).toFixed(2),
+            shipments: String(s.effects.shipments),
+          };
+          renderLedger($naiveLedger, values, {
+            total: s.effects.charges > 1 ? "warn" : "",
+          });
+
+          $naiveBanner.textContent = s.banner ? s.banner.text : "";
+          if (s.banner) $naiveBanner.dataset.type = s.banner.type;
+          else $naiveBanner.removeAttribute("data-type");
+          $naiveNarration.textContent = s.narration;
+        }
+
+        const naiveRunner = makeRunner("naive", initialNaive, applyNaive, renderNaive);
+
+        const naivePrefix = [
+          {
+            steps: { reserve: "active" },
+            ram: ["reservation R-1 (pending)"],
+            narration: "Order #1042 arrives. The service reserves one unit and keeps the reservation id in a local variable.",
+          },
+          {
+            steps: { reserve: "done" },
+            effects: { inventory: 1 },
+            ram: ["reservation R-1"],
+            narration: "Inventory is held. So far, so good — but nothing has been written to a database.",
+          },
+          {
+            steps: { pay: "active" },
+            ram: ["reservation R-1", "charge C-1 (in flight)"],
+            narration: "The payment gateway accepts $49.50. The charge is now real in the outside world.",
+          },
+          {
+            steps: { pay: "done" },
+            effects: { charges: 1 },
+            ram: ["reservation R-1", "charge C-1"],
+            narration: "The charge returns successfully. The service is about to call the shipping service…",
+          },
+        ];
+
+        const naiveScenarios = {
+          happy: {
+            events: naivePrefix.concat([
+              {
+                steps: { ship: "active" },
+                ram: ["reservation R-1", "charge C-1", "shipment (pending)"],
+                narration: "A shipment is created and the tracking number is stored in memory.",
+              },
+              {
+                steps: { ship: "done" },
+                effects: { shipments: 1 },
+                ram: ["reservation R-1", "charge C-1", "tracking TRK-1"],
+                banner: { type: "success", text: "Happy path: one reservation, one charge, one shipment. Nothing went wrong — so the design flaw stays invisible." },
+                narration: "Order complete. The flaw in this design only appears when something interrupts it.",
+              },
+            ]),
+          },
+          crash: {
+            events: naivePrefix.concat([
+              {
+                steps: { pay: "unknown" },
+                ram: [],
+                banner: { type: "danger", text: "Process crashed after the payment. RAM is empty, the database has zero rows — yet the customer was charged $49.50 and stock is reserved." },
+                narration: "The order vanished from the service, but the charge and reservation did not vanish from the world. Support cannot reconstruct what happened.",
+              },
+            ]),
+          },
+          retry: {
+            seed: () => {
+              const s = naiveRunner.state;
+              s.steps = { reserve: "done", pay: "done", ship: "pending" };
+              s.effects = { inventory: 1, charges: 1, shipments: 0 };
+              s.ram = [];
+              s.banner = { type: "danger", text: "The customer retries checkout. The new process has no memory of the first attempt." };
+              s.narration = "Same order, same card, brand-new process. To the service this looks like a fresh request.";
+            },
+            events: [
+              {
+                steps: { reserve: "active" },
+                ram: ["reservation R-2 (pending)"],
+                narration: "The service reserves stock again. The warehouse now holds two reservations for one order.",
+              },
+              {
+                steps: { reserve: "done" },
+                effects: { inventory: 2 },
+                ram: ["reservation R-2"],
+                narration: "Second reservation confirmed. Nothing links it to R-1.",
+              },
+              {
+                steps: { pay: "active" },
+                ram: ["reservation R-2", "charge C-2 (in flight)"],
+                narration: "The payment provider has no idempotency key to check, so it treats this as a new charge.",
+              },
+              {
+                steps: { pay: "done" },
+                effects: { charges: 2 },
+                ram: ["reservation R-2", "charge C-2"],
+                narration: "A second $49.50 charge is captured. The customer's statement now shows $99.00.",
+              },
+              {
+                steps: { ship: "done" },
+                effects: { shipments: 1 },
+                banner: { type: "danger", text: "Two charges, one order: $99.00 total. This is what at-least-once execution looks like without idempotency." },
+                narration: "The order finally ships — but it was charged twice and left a duplicate reservation behind.",
+              },
+            ],
+          },
+        };
+
+        /* ----------------------------------------------------------
+           ENGINE LAB
+           ---------------------------------------------------------- */
+
+        function initialEngine() {
+          return {
+            steps: { reserve: "pending", pay: "pending", ship: "pending" },
+            workers: { A: "idle", B: "idle" },
+            inspector: { step: "—", key: "—", lease: "—", attempt: "—" },
+            effects: {
+              inventory: 0,
+              charges: 0,
+              refunds: 0,
+              releases: 0,
+              shipments: 0,
+              cancellations: 0,
+            },
+            db: [],
+            log: [],
+            filter: "all",
+            runStatus: "—",
+            banner: null,
+            narration: "Choose a scenario. The engine writes state before it acts — watch the SQLite panel fill up first.",
+          };
+        }
+
+        function applyEngine(s, ev) {
+          if (ev.steps) Object.assign(s.steps, ev.steps);
+          if (ev.workers) Object.assign(s.workers, ev.workers);
+          if (ev.inspector) Object.assign(s.inspector, ev.inspector);
+          if (ev.effects) Object.assign(s.effects, ev.effects);
+          if (ev.runStatus) s.runStatus = ev.runStatus;
+          if (ev.banner !== undefined) s.banner = ev.banner;
+          if (ev.narration) s.narration = ev.narration;
+          if (ev.db) s.db.push.apply(s.db, ev.db);
+          if (ev.log) s.log.push.apply(s.log, ev.log);
+        }
+
+        const $enginePipeline = document.getElementById("engine-pipeline");
+        const $workerA = document.getElementById("worker-a");
+        const $workerB = document.getElementById("worker-b");
+        const $engineLedger = document.getElementById("engine-ledger");
+        const $engineBanner = document.getElementById("engine-banner");
+        const $engineNarration = document.getElementById("engine-narration");
+        const $engineLog = document.getElementById("engine-log");
+        const $dbRows = document.getElementById("db-rows");
+        const $dbCount = document.getElementById("db-count");
+        const $dbTabs = document.getElementById("db-tabs");
+
+        function renderLedger(container, values, tones) {
+          for (const node of container.querySelectorAll(".stat")) {
+            const key = node.dataset.stat;
+            if (!(key in values)) continue;
+            const valueNode = node.querySelector(".value");
+            const changed = valueNode.textContent !== values[key];
+            valueNode.textContent = values[key];
+            node.className = "stat" + (tones && tones[key] ? " " + tones[key] : "");
+            if (changed) {
+              node.classList.add("flash");
+              window.setTimeout(() => node.classList.remove("flash"), 800);
+            }
+          }
+        }
+
+        function renderEngine(s) {
+          for (const node of $enginePipeline.querySelectorAll(".step")) {
+            const status = s.steps[node.dataset.step] || "pending";
+            node.className = "step is-" + status;
+            node.querySelector(".state").textContent = STATE_TEXT[status] || status;
+            node.querySelector(".dot").textContent = STATE_MARK[status] || "·";
+          }
+
+          for (const [node, key] of [[$workerA, "A"], [$workerB, "B"]]) {
+            const task = s.workers[key];
+            node.className = "worker";
+            if (task === "crashed") node.classList.add("crashed");
+            else if (task === "offline") node.classList.add("offline");
+            else if (task !== "idle") node.classList.add("working");
+            node.querySelector(".task").textContent = task;
+          }
+
+          document.getElementById("insp-step").textContent = s.inspector.step;
+          document.getElementById("insp-key").textContent = s.inspector.key;
+          document.getElementById("insp-lease").textContent = s.inspector.lease;
+          document.getElementById("insp-attempt").textContent = s.inspector.attempt;
+
+          const held = s.effects.inventory - s.effects.releases;
+          const captured = s.effects.charges - s.effects.refunds;
+          const activeShipments = s.effects.shipments - s.effects.cancellations;
+          renderLedger(
+            $engineLedger,
+            {
+              inventory: String(held),
+              charges: String(captured),
+              net: "$" + (captured * AMOUNT).toFixed(2),
+              shipments: String(activeShipments),
+              run: s.runStatus,
+            },
+            {
+              net: captured > 1 ? "warn" : captured === 0 && s.effects.refunds > 0 ? "good" : "",
+              run: s.runStatus === "compensated" || s.runStatus === "completed" ? "good" : "",
+            }
+          );
+
+          $dbCount.textContent = s.db.length + (s.db.length === 1 ? " row" : " rows");
+          $dbRows.textContent = "";
+          const visible = s.db.filter((row) => s.filter === "all" || row.tab === s.filter);
+          if (visible.length === 0) {
+            const empty = document.createElement("span");
+            empty.className = "empty";
+            empty.textContent = "No rows in this table yet.";
+            $dbRows.appendChild(empty);
+          } else {
+            for (const row of visible) {
+              const line = document.createElement("div");
+              line.className = "db-row";
+              line.dataset.tab = row.tab;
+              const tag = document.createElement("span");
+              tag.className = "tag";
+              tag.textContent = "[" + row.tab + "]";
+              const text = document.createElement("span");
+              text.textContent = row.text;
+              line.appendChild(tag);
+              line.appendChild(text);
+              $dbRows.appendChild(line);
+            }
+          }
+
+          $engineLog.textContent = "";
+          if (s.log.length === 0) {
+            const empty = document.createElement("div");
+            empty.className = "log-line";
+            empty.innerHTML = '<span class="lvl">—</span><span>waiting for a scenario…</span>';
+            $engineLog.appendChild(empty);
+          } else {
+            for (const entry of s.log) {
+              const line = document.createElement("div");
+              line.className = "log-line";
+              line.dataset.level = entry.level;
+              const lvl = document.createElement("span");
+              lvl.className = "lvl";
+              lvl.textContent = entry.level.toUpperCase();
+              const text = document.createElement("span");
+              text.textContent = entry.text;
+              line.appendChild(lvl);
+              line.appendChild(text);
+              $engineLog.appendChild(line);
+            }
+            $engineLog.scrollTop = $engineLog.scrollHeight;
+          }
+
+          $engineBanner.textContent = s.banner ? s.banner.text : "";
+          if (s.banner) $engineBanner.dataset.type = s.banner.type;
+          else $engineBanner.removeAttribute("data-type");
+          $engineNarration.textContent = s.narration;
+        }
+
+        const engineRunner = makeRunner("engine", initialEngine, applyEngine, renderEngine);
+
+        /* --- reusable event fragments --- */
+
+        const createRun = {
+          runStatus: "pending",
+          narration: "First, a run and three step rows are written to SQLite. Each step receives a stable key before any handler executes.",
+          db: [
+            { tab: "runs", text: RUN + "  workflow=order-processing  status=pending" },
+            { tab: "steps", text: "0  reserve-inventory   key=run_8f3c1d:0:reserve-inventory   pending" },
+            { tab: "steps", text: "1  process-payment     key=" + PAY_KEY + "   pending" },
+            { tab: "steps", text: "2  arrange-shipping    key=run_8f3c1d:2:arrange-shipping   pending" },
+            { tab: "events", text: "run.created" },
+          ],
+          log: [{ level: "ok", text: "POST /api/workflows/order-processing/runs → 202 " + RUN }],
+        };
+
+        const claimReserve = {
+          steps: { reserve: "active" },
+          workers: { A: "reserve-inventory" },
+          inspector: {
+            step: "0 · reserve-inventory",
+            key: RUN + ":0:reserve-inventory",
+            lease: "worker-A · 30s",
+            attempt: "1 / 4",
+          },
+          narration: "Worker A claims step 0 in one transaction: status → running, lease → A, attempt row inserted, event appended.",
+          db: [
+            { tab: "steps", text: "0  reserve-inventory   status=running  lease=worker-A  attempts=1" },
+            { tab: "attempts", text: "att_01  execute  #1  worker-A  running" },
+            { tab: "events", text: "step.started  step=0  attempt=1" },
+          ],
+          log: [{ level: "info", text: "claimNext() → step 0 leased to worker-A" }],
+        };
+
+        const reserveDone = {
+          steps: { reserve: "done" },
+          workers: { A: "idle" },
+          effects: { inventory: 1 },
+          inspector: { step: "—", key: "—", lease: "—", attempt: "—" },
+          narration: "Inventory is reserved. The output is committed together with the success transition — before the engine looks at step 1.",
+          db: [
+            { tab: "attempts", text: "att_01  execute  #1  worker-A  succeeded" },
+            { tab: "events", text: 'step.succeeded  step=0  output={reservationId:"R-1"}' },
+          ],
+          log: [{ level: "ok", text: "reserve-inventory → R-1 (committed)" }],
+        };
+
+        const claimPayA = {
+          steps: { pay: "active" },
+          workers: { A: "process-payment" },
+          inspector: {
+            step: "1 · process-payment",
+            key: PAY_KEY,
+            lease: "worker-A · 30s",
+            attempt: "1 / 4",
+          },
+          narration: "Step 1 is now runnable because step 0 is succeeded. Worker A claims it with the same stable key that was created with the run.",
+          db: [
+            { tab: "steps", text: "1  process-payment   status=running  lease=worker-A  attempts=1" },
+            { tab: "attempts", text: "att_02  execute  #1  worker-A  running" },
+            { tab: "events", text: "step.started  step=1  attempt=1" },
+          ],
+          log: [{ level: "info", text: "claimNext() → step 1 leased to worker-A; key unchanged" }],
+        };
+
+        const payDone = {
+          steps: { pay: "done" },
+          workers: { A: "idle" },
+          effects: { charges: 1 },
+          inspector: { step: "—", key: "—", lease: "—", attempt: "—" },
+          narration: "The charge succeeds and the result is committed. Notice the ledger: one charge, tied to one idempotency key.",
+          db: [
+            { tab: "attempts", text: "att_02  execute  #1  worker-A  succeeded" },
+            { tab: "events", text: 'step.succeeded  step=1  output={paymentId:"C-1"}' },
+          ],
+          log: [{ level: "ok", text: "payment.charge(key=…:1:process-payment) → C-1" }],
+        };
+
+        const claimShipB = {
+          steps: { ship: "active" },
+          workers: { B: "arrange-shipping" },
+          inspector: {
+            step: "2 · arrange-shipping",
+            key: RUN + ":2:arrange-shipping",
+            lease: "worker-B · 30s",
+            attempt: "1 / 4",
+          },
+          narration: "Worker B — a different process — can execute the last step. It reads its instructions entirely from the database.",
+          db: [
+            { tab: "steps", text: "2  arrange-shipping   status=running  lease=worker-B  attempts=1" },
+            { tab: "attempts", text: "att_04  execute  #1  worker-B  running" },
+            { tab: "events", text: "step.started  step=2  attempt=1" },
+          ],
+          log: [{ level: "info", text: "worker-B claimed step 2 (stateless worker, shared store)" }],
+        };
+
+        const shipDone = {
+          steps: { ship: "done" },
+          workers: { B: "idle" },
+          effects: { shipments: 1 },
+          inspector: { step: "—", key: "—", lease: "—", attempt: "—" },
+          runStatus: "completed",
+          banner: { type: "success", text: "Order shipped: one reservation, one charge, one shipment — and every transition recorded on disk." },
+          narration: "The last step's commit also flips the run to completed. The event log is now a complete audit trail.",
+          db: [
+            { tab: "attempts", text: "att_04  execute  #1  worker-B  succeeded" },
+            { tab: "events", text: 'step.succeeded  step=2  output={trackingNumber:"TRK-1"}' },
+            { tab: "runs", text: RUN + "  status=completed  output={trackingNumber:\"TRK-1\"}" },
+            { tab: "events", text: "run.completed" },
+          ],
+          log: [{ level: "ok", text: "shipping → TRK-1; run completed" }],
+        };
+
+        const engineStart = [createRun, claimReserve, reserveDone, claimPayA];
+
+        /* --- crash + recovery --- */
+
+        const crashAfterCharge = {
+          steps: { pay: "unknown" },
+          workers: { A: "crashed" },
+          effects: { charges: 1 },
+          banner: { type: "danger", text: "Worker A died after the charge returned but before committing the result. The charge is real; the database still says step 1 is running." },
+          narration: "This is the exact gap from the naive story — except now the database knows an attempt was in flight. Recovery can act on that knowledge.",
+          db: [
+            { tab: "attempts", text: "att_02  execute  #1  worker-A  interrupted (no commit)" },
+          ],
+          log: [{ level: "error", text: "worker-A exited (SIGKILL) after payment.charge() returned" }],
+        };
+
+        const leaseExpired = {
+          steps: { pay: "pending" },
+          workers: { A: "offline" },
+          inspector: { step: "—", key: "—", lease: "lease expired", attempt: "—" },
+          banner: { type: "info", text: "Automatic recovery: the expired lease is reclaimed, the interrupted attempt is marked lease_expired, and the step returns to pending." },
+          narration: "No manual intervention and no lost work. The step is simply runnable again — this is how crash recovery looks in practice.",
+          db: [
+            { tab: "attempts", text: "att_02  execute  #1  worker-A  lease_expired" },
+            { tab: "steps", text: "1  process-payment   status=pending  lease=NULL  attempts=1" },
+            { tab: "events", text: "step.lease_expired  step=1" },
+          ],
+          log: [{ level: "warn", text: "recoverExpiredLeases(now) → 1 step reclaimed" }],
+        };
+
+        const reclaimPay = {
+          steps: { pay: "active" },
+          workers: { B: "process-payment" },
+          inspector: {
+            step: "1 · process-payment",
+            key: PAY_KEY,
+            lease: "worker-B · 30s",
+            attempt: "2 / 4",
+          },
+          narration: "Worker B claims step 1 with the very same key, run_8f3c1d:1:process-payment, and calls the payment service a second time.",
+          db: [
+            { tab: "steps", text: "1  process-payment   status=running  lease=worker-B  attempts=2" },
+            { tab: "attempts", text: "att_03  execute  #2  worker-B  running" },
+            { tab: "events", text: "step.started  step=1  attempt=2" },
+          ],
+          log: [{ level: "info", text: "worker-B claimed step 1; idempotency key unchanged" }],
+        };
+
+        const replayCharge = {
+          steps: { pay: "done" },
+          workers: { B: "idle" },
+          inspector: { step: "—", key: "—", lease: "—", attempt: "—" },
+          banner: { type: "success", text: "Idempotency wins: two attempts, one charge. The gateway recognised the key and returned the original charge C-1." },
+          narration: "The payment service looks up the key and returns the stored result. No second charge is created — retrying is now safe.",
+          db: [
+            { tab: "attempts", text: "att_03  execute  #2  worker-B  succeeded (dedup hit)" },
+            { tab: "events", text: 'step.succeeded  step=1  output={paymentId:"C-1"}' },
+          ],
+          log: [{ level: "ok", text: "payment.charge(key=…:1:process-payment) → dedup → C-1" }],
+        };
+
+        /* --- permanent failure + saga --- */
+
+        const permanentFail = {
+          steps: { ship: "failed" },
+          runStatus: "running",
+          banner: { type: "danger", text: "Permanent failure at shipping. Retrying would not help — so the engine starts a saga instead." },
+          narration: "Arrange shipping throws PermanentError. Retry policy is skipped and the failure is recorded with its full error.",
+          db: [
+            { tab: "attempts", text: "att_04  execute  #1  worker-A  failed  PermanentError(carrier down)" },
+            { tab: "events", text: "step.failed  step=2" },
+            { tab: "events", text: "compensation.requested  run=" + RUN },
+          ],
+          log: [{ level: "error", text: "arrange-shipping → PermanentError: carrier down" }],
+        };
+
+        const beginCompensation = {
+          steps: { pay: "pending_comp", reserve: "pending_comp" },
+          runStatus: "compensating",
+          narration: "Every earlier succeeded step is scheduled for compensation. The run moves to compensating and the engine will undo the highest index first.",
+          db: [
+            { tab: "runs", text: RUN + "  status=compensating" },
+            { tab: "steps", text: "1  process-payment   status=pending_compensation" },
+            { tab: "steps", text: "0  reserve-inventory  status=pending_compensation" },
+            { tab: "events", text: "run.compensating" },
+          ],
+          log: [{ level: "warn", text: "saga: compensation queue = [step 1, step 0] (reverse order)" }],
+        };
+
+        const claimCompPay = {
+          steps: { pay: "active_comp" },
+          workers: { A: "refund payment" },
+          inspector: {
+            step: "1 · process-payment (undo)",
+            key: PAY_KEY + ":compensate",
+            lease: "worker-A · 30s",
+            attempt: "comp 1 / 4",
+          },
+          narration: "Compensation for step 1 uses the execution key plus :compensate. A retried refund therefore cannot refund twice.",
+          db: [
+            { tab: "steps", text: "1  process-payment   status=compensating" },
+            { tab: "attempts", text: "att_05  compensate  #1  worker-A  running" },
+            { tab: "events", text: "step.compensation_started  step=1" },
+          ],
+          log: [{ level: "info", text: "worker-A claiming compensation for step 1" }],
+        };
+
+        const refundDone = {
+          steps: { pay: "compensated" },
+          workers: { A: "idle" },
+          effects: { refunds: 1 },
+          narration: "The $49.50 charge is refunded and the compensation is committed. Only now may inventory be released.",
+          db: [
+            { tab: "attempts", text: "att_05  compensate  #1  worker-A  succeeded" },
+            { tab: "events", text: "step.compensated  step=1" },
+          ],
+          log: [{ level: "ok", text: "payment.refund(key=…:compensate) → C-1 reversed" }],
+        };
+
+        const claimCompReserve = {
+          steps: { reserve: "active_comp" },
+          workers: { A: "release inventory" },
+          inspector: {
+            step: "0 · reserve-inventory (undo)",
+            key: RUN + ":0:reserve-inventory:compensate",
+            lease: "worker-A · 30s",
+            attempt: "comp 1 / 4",
+          },
+          narration: "Step 0 is the last to be undone. Reverse ordering guarantees we never release stock while a refund is still pending.",
+          db: [
+            { tab: "steps", text: "0  reserve-inventory  status=compensating" },
+            { tab: "attempts", text: "att_06  compensate  #1  worker-A  running" },
+            { tab: "events", text: "step.compensation_started  step=0" },
+          ],
+          log: [{ level: "info", text: "worker-A claiming compensation for step 0" }],
+        };
+
+        const releaseDone = {
+          steps: { reserve: "compensated" },
+          workers: { A: "idle" },
+          effects: { releases: 1 },
+          runStatus: "compensated",
+          banner: { type: "success", text: "Saga complete: refund → release. Net charge $0.00, no stranded reservation, and a complete audit log." },
+          narration: "Every earlier effect has been undone. The run ends compensated rather than silently half-finished.",
+          db: [
+            { tab: "attempts", text: "att_06  compensate  #1  worker-A  succeeded" },
+            { tab: "events", text: "step.compensated  step=0" },
+            { tab: "runs", text: RUN + "  status=compensated" },
+            { tab: "events", text: "run.compensated" },
+          ],
+          log: [{ level: "ok", text: "saga finished; run=compensated" }],
+        };
+
+        const engineScenarios = {
+          happy: { events: engineStart.concat([payDone, claimShipB, shipDone]) },
+          crash: { events: engineStart.concat([crashAfterCharge, leaseExpired, reclaimPay, replayCharge, claimShipB, shipDone]) },
+          saga: { events: engineStart.concat([payDone, claimShipB, permanentFail, beginCompensation, claimCompPay, refundDone, claimCompReserve, releaseDone]) },
+        };
+
+        /* ----------------------------------------------------------
+           Wiring
+           ---------------------------------------------------------- */
+
+        document.querySelectorAll("[data-naive]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const which = btn.dataset.naive;
+            if (which === "reset") {
+              load(naiveRunner, []);
+              return;
+            }
+            const scenario = naiveScenarios[which];
+            if (scenario) {
+              load(naiveRunner, scenario.events, scenario.seed);
+              play(naiveRunner, 950);
+            }
+          });
+        });
+
+        const $playBtn = document.getElementById("engine-play");
+
+        document.querySelectorAll("[data-engine]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const which = btn.dataset.engine;
+            if (which === "reset") {
+              load(engineRunner, []);
+              $playBtn.textContent = "Play";
+              return;
+            }
+            const scenario = engineScenarios[which];
+            if (scenario) {
+              load(engineRunner, scenario.events);
+              play(engineRunner, 1000);
+              $playBtn.textContent = "Pause";
+            }
+          });
+        });
+
+        document.getElementById("engine-step").addEventListener("click", () => {
+          stop(engineRunner);
+          step(engineRunner);
+          $playBtn.textContent = "Play";
+        });
+
+        $playBtn.addEventListener("click", () => {
+          if (engineRunner.timer !== null) {
+            stop(engineRunner);
+            $playBtn.textContent = "Play";
+          } else {
+            if (engineRunner.index >= engineRunner.events.length) {
+              load(engineRunner, engineScenarios.happy.events);
+            }
+            play(engineRunner, 1000);
+            $playBtn.textContent = "Pause";
+          }
+        });
+
+        $dbTabs.addEventListener("click", (event) => {
+          const btn = event.target.closest(".db-tab");
+          if (!btn) return;
+          engineRunner.state.filter = btn.dataset.filter;
+          $dbTabs.querySelectorAll(".db-tab").forEach((tab) => {
+            tab.classList.toggle("active", tab === btn);
+          });
+          renderEngine(engineRunner.state);
+        });
+
+        /* ----------------------------------------------------------
+           INCREMENTAL CODE WALKTHROUGH
+           Each stage adds one real piece until the current bootstrap.
+           ---------------------------------------------------------- */
+
+        const WALKTHROUGH = [
+          {
+            short: "The fragile handler",
+            fileShort: "before.ts",
+            file: "before.ts  ·  illustrative starting point",
+            lang: "TS",
+            badge: "BEFORE",
+            badgeKind: "before",
+            title: "The fragile handler",
+            summary:
+              "This is the code we began with: three awaited calls and three local variables. It reads cleanly, and it is exactly what breaks when the process dies between the charge and the shipment.",
+            change:
+              "Nothing yet — this is the baseline. Every later step replaces one of the hidden assumptions in this function.",
+            files: ["before.ts (illustrative)"],
+            foot: "This file never existed in the repo — it is the shape of the code the engine replaces.",
+            code: `// What we started with: progress lives in the call stack.
+async function checkout(input: OrderInput) {
+  const reservation = await inventory.reserve(input.items);
+  const payment = await paymentGateway.charge(input.amount);
+  const shipment = await shipping.arrange(reservation.id);
+
+  return { shipmentId: shipment.trackingNumber };
+}`,
+          },
+          {
+            short: "Describe work as data",
+            fileShort: "types.ts + workflow.ts",
+            file: "src/domain/types.ts  +  src/workflows/order/workflow.ts",
+            lang: "TS",
+            badge: "TYPE",
+            badgeKind: "",
+            title: "Describe the work as data",
+            summary:
+              "First we stop hard-coding the sequence. A workflow becomes a list of named steps, each with an execute handler and an optional compensate handler. The engine can now read the process instead of being the process.",
+            change:
+              "A step becomes a durable unit with a name, an undo action, and its own retry policy. The order no longer lives in a call stack.",
+            files: ["src/domain/types.ts", "src/workflows/order/workflow.ts"],
+            foot: "Real source: src/domain/types.ts (StepDefinition) and src/workflows/order/workflow.ts.",
+            code: `export interface StepDefinition<Input = unknown, Output = unknown> {
+  name: string;
+  execute(ctx: StepContext<Input>): Promise<Output>;
+  compensate?(ctx: StepContext<Input>, output: Output): Promise<void>;
+  retry?: Partial<RetryPolicy>;
+  timeoutMs?: number;
+}
+
+// src/workflows/order/workflow.ts
+const steps = [
+  { name: "reserve-inventory", execute, compensate: release },
+  { name: "process-payment",   execute, compensate: refund  },
+  { name: "arrange-shipping",  execute, compensate: cancel  },
+];`,
+          },
+          {
+            short: "Create a run with keys",
+            fileShort: "workflow-service.ts",
+            file: "src/engine/workflow-service.ts  ·  createRun()",
+            lang: "TS",
+            badge: "KEY",
+            badgeKind: "",
+            title: "Create a run with stable keys",
+            summary:
+              "When a run is created, every step is snapshotted into its own row with a deterministic idempotency key and a resolved retry policy. That key will follow the step through every retry, on any worker, forever.",
+            change:
+              "The identity of a step no longer depends on a process. A retry can be recognised as the same logical operation.",
+            files: ["src/engine/workflow-service.ts"],
+            foot: "Real source: src/engine/workflow-service.ts — createRun().",
+            code: `const runId = randomUUID();
+const steps = workflow.steps.map((step, index) => ({
+  id: randomUUID(),
+  index,
+  name: step.name,
+  idempotencyKey: \`\${runId}:\${index}:\${step.name}\`,
+  retry: resolveRetryPolicy(workflow, step),
+}));
+
+const run = this.store.createRun({
+  id: runId,
+  workflowName,
+  input: normalizedInput,
+  steps,
+  now: this.clock.now(),
+});`,
+          },
+          {
+            short: "Put state on disk",
+            fileShort: "database.ts",
+            file: "src/db/database.ts  ·  SCHEMA + connection",
+            lang: "SQL",
+            badge: "DISK",
+            badgeKind: "",
+            title: "Make the database the source of truth",
+            summary:
+              "Four tables hold everything the engine knows: runs, steps, attempts, and an append-only event log. WAL mode plus a busy timeout let committed transitions survive a crash and be read by another worker.",
+            change:
+              "Progress is now durable. A restart no longer answers 'what happened?' from memory — it reads the rows.",
+            files: ["src/db/database.ts"],
+            foot: "Simplified from src/db/database.ts — SCHEMA and the Database constructor.",
+            code: `CREATE TABLE runs (
+  id TEXT PRIMARY KEY, status TEXT,
+  workflow_name TEXT, input_json TEXT, output_json TEXT,
+  idempotency_key TEXT, created_at INTEGER, updated_at INTEGER
+);
+
+CREATE TABLE steps (
+  id TEXT PRIMARY KEY, run_id TEXT, step_index INTEGER,
+  name TEXT, status TEXT,
+  attempts INTEGER, max_attempts INTEGER, compensation_attempts INTEGER,
+  next_attempt_at INTEGER,
+  lease_owner TEXT, lease_expires_at INTEGER,
+  idempotency_key TEXT, retry_json TEXT, output_json TEXT
+);
+
+CREATE TABLE attempts (...);   -- one row per execution / compensation
+CREATE TABLE events (...);     -- append-only audit log
+
+this.handle.exec("PRAGMA journal_mode = WAL");
+this.handle.exec("PRAGMA synchronous = NORMAL");
+this.handle.exec("PRAGMA busy_timeout = 5000");`,
+          },
+          {
+            short: "Claim steps atomically",
+            fileShort: "store.ts",
+            file: "src/engine/store.ts  ·  claimNext() / claimForward()",
+            lang: "SQL",
+            badge: "CLAIM",
+            badgeKind: "",
+            title: "Claim a step atomically",
+            summary:
+              "The worker loop asks the database for the next runnable step. The SQL itself enforces ordering: a step is only claimable when the previous one succeeded. The claim, attempt row, and event are written in one transaction.",
+            change:
+              "Ordering and mutual exclusion move into SQL. Two workers can poll the same database without both executing the same step.",
+            files: ["src/engine/store.ts"],
+            foot: "Source: src/engine/store.ts — claimNext() at line 324 and claimForward() at line 371.",
+            code: `SELECT s.* FROM steps s
+JOIN runs r ON r.id = s.run_id
+WHERE s.status = 'pending'
+  AND s.next_attempt_at <= ?
+  AND r.status IN ('pending', 'running')
+  AND (s.step_index = 0 OR EXISTS (
+    SELECT 1 FROM steps p
+    WHERE p.run_id = s.run_id
+      AND p.step_index = s.step_index - 1
+      AND p.status = 'succeeded'
+  ));
+
+-- still inside the same transaction:
+UPDATE steps
+   SET status = 'running', lease_owner = ?,
+       lease_expires_at = ?, attempts = attempts + 1
+ WHERE id = ? AND status = 'pending';
+
+INSERT INTO attempts (id, step_id, kind, attempt_number, worker_id, status, started_at)
+VALUES (?, ?, 'execute', ?, ?, 'running', ?);`,
+          },
+          {
+            short: "Dedupe with keys",
+            fileShort: "services.ts",
+            file: "src/engine/workflow-service.ts  +  src/workflows/order/services.ts",
+            lang: "TS",
+            badge: "IDEMPOTENT",
+            badgeKind: "",
+            title: "Make retries safe with idempotency keys",
+            summary:
+              "The stable key is finally used at the boundaries. Creating a run with the same external key replays the old run; calling the payment service with the same step key returns the original charge instead of capturing another one.",
+            change:
+              "At-least-once execution stops meaning at-least-once charging. Repeats collapse into one external effect.",
+            files: ["src/workflows/order/services.ts"],
+            foot: "Real source: src/engine/workflow-service.ts and src/workflows/order/services.ts.",
+            code: `// WorkflowService.createRun — replay instead of duplicating a run
+if (key) {
+  const existing = this.store.findRunByIdempotencyKey(key);
+  if (existing) return this.replayExisting(existing, workflowName);
+}
+
+// InMemoryPaymentService.charge — dedupe by the step key
+const existing = this.charges.get(request.idempotencyKey);
+if (existing) return existing;
+
+const charge = { paymentId: \`pay_\${++this.sequence}\`, amount: request.amount };
+this.charges.set(request.idempotencyKey, charge);
+return charge;`,
+          },
+          {
+            short: "Recover & fence",
+            fileShort: "store.ts + engine.ts",
+            file: "src/engine/store.ts  ·  recovery + fencing",
+            lang: "SQL",
+            badge: "RECOVERY",
+            badgeKind: "",
+            title: "Survive the crash you demonstrated earlier",
+            summary:
+              "A claim carries a lease. If a worker disappears, another worker reclaims the step after expiry and the interrupted attempt is marked lease_expired. If the old worker comes back, a conditional UPDATE fences its stale result away.",
+            change:
+              "The crash window is now closed: work is reclaimed automatically, and stale results cannot overwrite newer state.",
+            files: ["src/engine/store.ts", "src/engine/engine.ts"],
+            foot: "Simplified from src/engine/store.ts — recoverExpiredLeases() and markStepSucceeded().",
+            code: `// Recover a worker that disappeared mid-step.
+recoverExpiredLeases(now: number): void {
+  for (const step of stepsWithLeaseExpiredBefore(now)) {
+    markAttemptLeaseExpired(step.id, now);
+
+    if (step.attempts < step.maxAttempts) {
+      UPDATE steps SET status = 'pending', lease_owner = NULL,
+        lease_expires_at = NULL WHERE id = ?;
+    } else {
+      failStep(step); beginCompensation(step.runId, step.stepIndex, error, now);
+    }
+  }
+}
+
+// Fencing: only the current lease holder may commit success.
+UPDATE steps SET status = 'succeeded', output_json = ?, finished_at = ?
+ WHERE id = ? AND status = 'running'
+   AND lease_owner = ? AND attempts = ?;`,
+          },
+          {
+            short: "Retries & backoff",
+            fileShort: "errors.ts + registry.ts",
+            file: "src/engine/errors.ts  +  src/engine/registry.ts  +  src/engine/engine.ts",
+            lang: "TS",
+            badge: "RETRY",
+            badgeKind: "",
+            title: "Classify failures and back off",
+            summary:
+              "Not every failure deserves a retry. RetryableError and unknown errors are retried with exponential backoff; PermanentError skips straight to compensation. The policy is stored with the step when the run is created.",
+            change:
+              "Failure handling becomes a decision, not an exception handler that blindly loops forever.",
+            files: ["src/engine/errors.ts", "src/engine/registry.ts", "src/engine/engine.ts"],
+            foot: "Real source: src/engine/errors.ts, src/engine/registry.ts, and src/engine/engine.ts.",
+            code: `export function isRetryable(error: unknown): boolean {
+  if (error instanceof PermanentError) return false;
+  if (error instanceof RetryableError) return true;
+  return true; // unknown errors are treated as transient
+}
+
+export function computeBackoffDelay(policy: RetryPolicy, failedAttempt: number): number {
+  const exponent = Math.max(failedAttempt - 1, 0);
+  const delay = policy.initialDelayMs * Math.pow(policy.backoffFactor, exponent);
+  return Math.min(Math.round(delay), policy.maxDelayMs);
+}
+
+// engine.ts — one branch decides retry vs compensation
+if (retryable && attemptsLeft) {
+  this.store.scheduleRetry(task, error, now + delay, now);
+} else {
+  this.store.failStep(task, error, now);
+}`,
+          },
+          {
+            short: "Undo in reverse",
+            fileShort: "store.ts + engine.ts",
+            file: "src/engine/store.ts  ·  beginCompensation()  +  src/engine/engine.ts",
+            lang: "SQL",
+            badge: "SAGA",
+            badgeKind: "",
+            title: "Undo completed work in reverse",
+            summary:
+              "When a step fails permanently, earlier successful steps become pending_compensation, ordered by step_index descending. Compensation uses the execution key plus ':compensate', so a retried refund cannot refund twice.",
+            change:
+              "A permanent failure no longer leaves a half-finished order. It becomes a tracked rollback with its own idempotency keys.",
+            files: ["src/engine/store.ts"],
+            foot: "Real source: src/engine/store.ts — beginCompensation() at line 884, and src/engine/engine.ts.",
+            code: `// Completed steps become compensatable, highest index first.
+SELECT id, step_index FROM steps
+ WHERE run_id = ? AND step_index < ? AND status = 'succeeded'
+ ORDER BY step_index DESC;
+
+UPDATE steps SET status = 'pending_compensation', next_attempt_at = ? WHERE id = ?;
+UPDATE runs SET status = 'compensating', error_json = ?, updated_at = ? WHERE id = ?;
+
+// engine.ts — the undo call gets its own stable key
+const idempotencyKey = task.kind === "execute"
+  ? task.idempotencyKey
+  : \`\${task.idempotencyKey}:compensate\`;
+
+await step.compensate!(ctx, outputs[task.stepName]);`,
+          },
+          {
+            short: "The current implementation",
+            fileShort: "index.ts",
+            file: "src/index.ts  ·  bootstrap",
+            lang: "TS",
+            badge: "NOW",
+            badgeKind: "final",
+            title: "The current implementation",
+            summary:
+              "Here is where the walkthrough ends. One bootstrap wires configuration, the SQLite database, the store, the workflow registry, the service layer, the Fastify API, and the background worker. Every piece you revealed above is present in this file.",
+            change:
+              "All ten steps are now connected: a running service that accepts orders, persists them, recovers from crashes, and compensates failures.",
+            files: ["src/api/server.ts", "src/index.ts"],
+            foot: "You have reached the current implementation — src/index.ts in this repository.",
+            code: `async function main(): Promise<void> {
+  const config = loadConfig();
+  const database = new Database(config.databasePath);
+  const store = new RunStore(database);
+  const { registry, services } = createDemoSetup();
+  const service = new WorkflowService(store, registry);
+
+  const app = buildApp({ service, logger: { level: config.logLevel } });
+  const engine = new WorkflowEngine({
+    store,
+    registry,
+    leaseMs: config.leaseMs,
+    concurrency: config.concurrency,
+    pollIntervalMs: config.pollIntervalMs,
+    defaultStepTimeoutMs: config.defaultStepTimeoutMs,
+    logger: app.log,
+  });
+
+  if (config.workerEnabled) engine.start();
+
+  await app.listen({ host: config.host, port: config.port });
+}`,
+          },
+        ];
+
+        const $walkSteps = document.getElementById("walk-steps");
+        const $walkProgress = document.getElementById("walk-progress");
+        const $walkEyebrow = document.getElementById("walk-eyebrow");
+        const $walkTitle = document.getElementById("walk-title");
+        const $walkBadge = document.getElementById("walk-badge");
+        const $walkSummary = document.getElementById("walk-summary");
+        const $walkChange = document.getElementById("walk-change-text");
+        const $walkFiles = document.getElementById("walk-files");
+        const $walkFile = document.getElementById("walk-file");
+        const $walkLang = document.getElementById("walk-lang");
+        const $walkCode = document.getElementById("walk-code");
+        const $walkFoot = document.getElementById("walk-foot");
+        const $walkPrev = document.getElementById("walk-prev");
+        const $walkNext = document.getElementById("walk-next");
+        const $walkPlay = document.getElementById("walk-play");
+        const $walkAll = document.getElementById("walk-all");
+        const $walkReset = document.getElementById("walk-reset");
+
+        let walkIndex = 0;
+        let walkAll = false;
+        let walkTimer = null;
+
+        function escapeHtml(text) {
+          return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function highlight(line) {
+          const tokenRe =
+            /(\/\/[^\n]*|--[^\n]*)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|\b(import|from|export|interface|type|class|const|let|async|await|return|if|else|for|of|new|throw|try|catch|function|private|public|this|null|true|false|undefined|SELECT|FROM|WHERE|AND|OR|JOIN|ON|EXISTS|INSERT|INTO|VALUES|UPDATE|SET|CREATE|TABLE|PRIMARY|KEY|TEXT|INTEGER|NOT|ORDER|BY|DESC|LIMIT|PRAGMA|BEGIN|IMMEDIATE|COMMIT)\b|\b(\d+(?:\.\d+)?)\b/g;
+          let out = "";
+          let last = 0;
+          let match;
+          while ((match = tokenRe.exec(line)) !== null) {
+            out += escapeHtml(line.slice(last, match.index));
+            const cls = match[1] ? "c" : match[2] ? "s" : match[3] ? "k" : "n";
+            out += '<span class="' + cls + '">' + escapeHtml(match[0]) + "</span>";
+            last = match.index + match[0].length;
+          }
+          return out + escapeHtml(line.slice(last));
+        }
+
+        function appendCodeGroup(stage, isCurrent, accumulated) {
+          const group = document.createElement("div");
+          group.className = "code-group code-block";
+
+          const head = document.createElement("div");
+          head.className = "code-group-head";
+          head.textContent =
+            (accumulated && isCurrent ? "▸ " : "") +
+            stage.file +
+            (accumulated && isCurrent ? "  · current step" : "");
+          group.appendChild(head);
+
+          stage.code.split("\n").forEach((line, index) => {
+            const row = document.createElement("div");
+            row.className = "code-line";
+            const num = document.createElement("span");
+            num.className = "ln";
+            num.textContent = String(index + 1).padStart(2, "0");
+            const src = document.createElement("span");
+            src.className = "src";
+            src.innerHTML = highlight(line);
+            row.appendChild(num);
+            row.appendChild(src);
+            group.appendChild(row);
+          });
+
+          $walkCode.appendChild(group);
+        }
+
+        function renderWalk() {
+          const stage = WALKTHROUGH[walkIndex];
+          const total = WALKTHROUGH.length;
+
+          $walkProgress.textContent =
+            String(walkIndex + 1).padStart(2, "0") + " / " + String(total).padStart(2, "0");
+          $walkEyebrow.textContent = "Step " + (walkIndex + 1) + " of " + total;
+          $walkTitle.textContent = stage.title;
+          $walkBadge.textContent = stage.badge;
+          $walkBadge.dataset.kind = stage.badgeKind;
+          $walkSummary.textContent = stage.summary;
+          $walkChange.textContent = stage.change;
+          $walkFile.textContent = stage.file;
+          $walkLang.textContent = stage.lang;
+          $walkFoot.textContent = stage.foot;
+
+          $walkSteps.textContent = "";
+          WALKTHROUGH.forEach((item, index) => {
+            const li = document.createElement("li");
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className =
+              "walk-step-btn" +
+              (index === walkIndex ? " active" : "") +
+              (index < walkIndex ? " done" : "");
+            const num = document.createElement("span");
+            num.className = "n";
+            num.textContent = String(index + 1).padStart(2, "0");
+            const text = document.createElement("span");
+            const title = document.createElement("span");
+            title.className = "t";
+            title.textContent = item.short;
+            const file = document.createElement("span");
+            file.className = "f";
+            file.textContent = item.fileShort;
+            text.appendChild(title);
+            text.appendChild(file);
+            btn.appendChild(num);
+            btn.appendChild(text);
+            btn.addEventListener("click", () => goWalk(index));
+            li.appendChild(btn);
+            $walkSteps.appendChild(li);
+          });
+
+          const files = [];
+          for (let i = 0; i <= walkIndex; i += 1) {
+            for (const file of WALKTHROUGH[i].files) {
+              if (!files.includes(file)) files.push(file);
+            }
+          }
+          $walkFiles.textContent = "";
+          for (const file of files) {
+            const chip = document.createElement("span");
+            chip.className =
+              "walk-file-chip" + (stage.files.includes(file) ? " current" : "");
+            chip.textContent = file;
+            $walkFiles.appendChild(chip);
+          }
+
+          $walkPrev.disabled = walkIndex === 0;
+          $walkNext.disabled = walkIndex === total - 1;
+
+          $walkCode.textContent = "";
+          if (walkAll) {
+            for (let i = 0; i <= walkIndex; i += 1) {
+              appendCodeGroup(WALKTHROUGH[i], i === walkIndex, true);
+            }
+            $walkCode.scrollTop = $walkCode.scrollHeight;
+          } else {
+            appendCodeGroup(stage, true, false);
+            $walkCode.scrollTop = 0;
+          }
+        }
+
+        function stopWalk() {
+          if (walkTimer !== null) {
+            window.clearInterval(walkTimer);
+            walkTimer = null;
+          }
+          $walkPlay.textContent = "Play";
+        }
+
+        function goWalk(index) {
+          stopWalk();
+          walkIndex = Math.max(0, Math.min(WALKTHROUGH.length - 1, index));
+          renderWalk();
+        }
+
+        $walkPrev.addEventListener("click", () => goWalk(walkIndex - 1));
+        $walkNext.addEventListener("click", () => goWalk(walkIndex + 1));
+        $walkReset.addEventListener("click", () => goWalk(0));
+
+        $walkPlay.addEventListener("click", () => {
+          if (walkTimer !== null) {
+            stopWalk();
+            return;
+          }
+          if (walkIndex === WALKTHROUGH.length - 1) walkIndex = 0;
+          renderWalk();
+          $walkPlay.textContent = "Pause";
+          walkTimer = window.setInterval(() => {
+            if (walkIndex < WALKTHROUGH.length - 1) {
+              walkIndex += 1;
+              renderWalk();
+            } else {
+              stopWalk();
+            }
+          }, 2400);
+        });
+
+        $walkAll.addEventListener("click", () => {
+          walkAll = !walkAll;
+          $walkAll.setAttribute("aria-pressed", String(walkAll));
+          $walkAll.classList.toggle("primary", walkAll);
+          renderWalk();
+        });
+
+        /* Exposed for automated checks / embedded demos. */
+        window.__explainer = {
+          step,
+          stop,
+          load,
+          naive: naiveRunner,
+          engine: engineRunner,
+          naiveScenarios,
+          engineScenarios,
+          walk: {
+            go: goWalk,
+            current: () => walkIndex,
+            stages: WALKTHROUGH,
+            accumulated: () => walkAll,
+          },
+        };
+
+        renderNaive(naiveRunner.state);
+        renderEngine(engineRunner.state);
+        renderWalk();
+      })();
+    </script>
+  </body>
+</html>
